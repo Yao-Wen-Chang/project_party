@@ -1,0 +1,2 @@
+MySQL stop ==> sudo service mysql stop
+Apache stop ==> sudo apachectl stop
