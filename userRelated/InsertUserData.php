@@ -1,5 +1,5 @@
 <?php
-    require "Init.php";
+    require "initUser.php";
     $signup = $user_obj->Signup($_POST["username"], $_POST["email"], $_POST["password"], $_POST["gender"], $_POST["birth"], $_POST["photo"]);
     if(!$signup) {
 	    echo '

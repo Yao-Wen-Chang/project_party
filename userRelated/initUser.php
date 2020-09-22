@@ -1,8 +1,9 @@
 <?php
     session_start();
+    session_regenerate_id(true);
     require "User.php";
     require "Friendship.php";
-    require "databaseConnection.php";
+    require "databaseUserConnection.php";
     
     $db = new Database();
     $db_connection = $db->dbConnection();

@@ -22,6 +22,13 @@ class User {
 				    $db_row = $preparation->fetch(PDO::FETCH_ASSOC);
 					$password_match = password_verify($this->password, $db_row['password']);
 				    if($password_match) {
+				        $_SESSION["username"] = $db_row["username"];
+				        $_SESSION["email"] = $db_row["email"];
+				        $_SESSION["password"] = $db_row["password"];
+				        $_SESSION["gender"] = $db_row["gender"];
+				        $_SESSION["birth"] = $db_row["birth"];
+				        $_SESSION["photo"] = $db_row["photo"];
+				         
 				        return TRUE; 
 				    }
 				    else {

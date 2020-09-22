@@ -1,5 +1,5 @@
 <?php
-    require "Init.php";
+    require "initUser.php";
     $login = $user_obj->Login($_POST["email"], $_POST["password"]);
     if(!$login) {
         echo '
