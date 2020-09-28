@@ -44,6 +44,7 @@ class Party {
     
     
     }
+    
     function getAllParty() {
         try {
             $query = "SELECT * FROM party_online";
@@ -56,7 +57,26 @@ class Party {
             echo "Error: " . $exception->getMessage();
         }
     }
-
+    
+    function getAllPartyRequest() {
+    
+    
+    }
+    
+    function sendPartyRequest() {
+        
+    }
+    
+    function rejectPartyRequest() {
+    
+    
+    }
+    
+    function acceptPartyRequest() {
+    
+    
+    }
+    
 
 }
 

@@ -105,6 +105,7 @@ class Friendship {
         }
         catch(PDOException $exception) {
             echo "Error: " . $exception->getMessage();
+            return false;  
         }
     
     
@@ -133,7 +134,7 @@ class Friendship {
             $preparation.bindValue(':sender', $senderUsername, PDO::PARAM_STR);
             $preparation.bindValue(':receiver', $myUsername, PDO::PARAM_STR);
             $preparation->execute();
-                
+            return true;    
         
         
         }
@@ -165,16 +166,44 @@ class Friendship {
     }
     # not complete
     function ableSetFriendship($myID, $userID) {
-        $query = "SELECT * FROM friendRequest WHERE (sender = :userOne AND receiver = :userTwo) OR (sender = :userTwo AND receiver = :userOne)";
-        $preparation.bindValue(':sender', $myID, PDO::PARAM_STR);
-        $preparation.bindValue(':receiver', $userID, PDO::PARAM_STR);
-        $preparation->execute();
-        if($preparation->rowCount() === 2) 
-            return true;
-        else
-            return false;
+        try {
+            $query = "SELECT * FROM friendRequest WHERE (sender = :userOne AND receiver = :userTwo) OR (sender = :userTwo AND receiver = :userOne)";
+            $preparation = $this->db->prepare($query);
+            $preparation.bindValue(':sender', $myID, PDO::PARAM_STR);
+            $preparation.bindValue(':receiver', $userID, PDO::PARAM_STR);
+            $preparation->execute();
+            if($preparation->rowCount() === 2) 
+                return true;
+            else
+                return false;
+        }        
+        catch(PDOException $exception) {
+            echo "Error: " . $exception->getMessage();
+            
+        }
     
+    }
     
+    function getAllFriendRequest($myUsername) {
+        try {
+            $query = "SELECT * FROM friendRequest WHERE receiver = ?";
+            $preparation = $this->db->prepare($query);
+            $preparation->execute([$myUsername]);
+            $returnData = [];
+            if($preparation->rowCount() > 0) {
+                $friendRequestList = $preparation->fetchAll(PDO::FETCH_ASSOC);
+                foreach($friendRequestList as $rows)      
+                    array_push($returnData, $rows["sender"]);           
+            }
+            else 
+                array_push($returnData, "There is no request existing");
+            return $returnData;    
+            
+        }
+        catch(PDOException $exception) {
+            echo "Error: " . $exception->getMessage();
+            
+        }
     }
 
 }
