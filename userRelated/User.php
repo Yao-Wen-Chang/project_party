@@ -28,6 +28,7 @@ class User {
 				        $_SESSION["gender"] = $db_row["gender"];
 				        $_SESSION["birth"] = $db_row["birth"];
 				        $_SESSION["photo"] = $db_row["photo"];
+				        $_SESSION["autobiography"] = $db_row["autobiography"];
 				         
 				        return TRUE; 
 				    }
@@ -89,6 +90,23 @@ class User {
             return FALSE;        
         }    
     }
+    function getUserInformation($selectedUser) {
+        try {
+            $query = "SELECT username, gender, birth, photo, autobiography FROM users WHERE username = ?";
+            $preparation = $this->db->prepare($query);
+		    $preparation->execute([$selectedUser]);
+		    $userInformation = $preparation->fetch(PDO::FETCH_ASSOC);
+		    
+		    return $userInformation;
+    
+        }
+        catch(PDOException $exception) {
+	        echo "Error: " . $exception->getMessage();
+	        exit;
+    	}
+
+    }
+    
     
 }
 

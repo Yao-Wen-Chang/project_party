@@ -47,8 +47,8 @@ class Friendship {
         try {
             $query = "SELECT user_one, user_two FROM Friendship WHERE (user_one = :my_id AND user_two = :friend_id) OR (user_one = :friend_id AND user_two = :my_id)";
             $preparation = $this->db->prepare($query);
-            $preparation.bindValue(':my_id', $my_id, PDO::PARAM_STR);
-            $preparation.bindValue(':friend_id', $friend_id, PDO::PARAM_STR);
+            $preparation->bindValue(':my_id', $my_id, PDO::PARAM_STR);
+            $preparation->bindValue(':friend_id', $friend_id, PDO::PARAM_STR);
             $preparation->execute();
             if ($preparation->rowCount() >= 1) 
                 return true;
@@ -60,42 +60,34 @@ class Friendship {
         }
     
     }
-    function getAllFriend($my_id) {
+    function getAllFriend($username) {
         try {
-            $query = "SELECT * FROM Friendship WHERE user_one = :my_id OR user_two = :my_id)";
+            $query = "SELECT * FROM Friendship WHERE (user_one = :username) OR (user_two = :username)";
             $preparation = $this->db->prepare($query);
-            $preparation.bindValue(':my_id', $my_id, PDO::PARAM_STR);
-            
+            $preparation->bindValue(':username', $username, PDO::PARAM_STR);
             $preparation->execute();
             $friend_list = $preparation->fetchAll(PDO::FETCH_ASSOC);
-            $return_data = [];
+            $returnData = [];
             foreach($friend_list as $rows) {
-                if($rows["user_one"] == $my_id) {
-                    array_push($return_data, $rows["user_two"]);
-                    
+                if($rows["user_one"] == $username) {
+                    array_push($returnData, $rows["user_two"]);                  
                 }
                 else {
-                    array_push($return_data, $rows["user_one"]); 
-                
-                }
-            
-            }
-            return $return_Data;
-            
+                    array_push($returnData, $rows["user_one"]);                 
+                }          
+            }  
         }
         catch(PDOException $exception) {
             echo "Error: " . $exception->getMessage();
         }
-    
-    
     }
     
     function alreadySendRequest($myID, $userID) {
         try {
             $query = "SELECT * FROM friendRequest WHERE (sender = :myID AND receiver = :userID) OR (sender = :userID AND receiver = :myID)";
             $preparation = $this->db->prepare($query);
-            $preparation.bindValue(':sender', $myID, PDO::PARAM_STR);
-            $preparation.bindValue(':receiver', $userID, PDO::PARAM_STR);
+            $preparation->bindValue(':sender', $myID, PDO::PARAM_STR);
+            $preparation->bindValue(':receiver', $userID, PDO::PARAM_STR);
             $preparation->execute();
             if($preparation->rowCount() === 1) 
                 return true;
@@ -116,8 +108,8 @@ class Friendship {
         try {
             $query = "INSERT INTO friendRequest (sender, receiver) VALUES (:sender, :receiver)";
             $preparation = $this->db->prepare($query);
-            $preparation.bindValue(':sender', $sender, PDO::PARAM_STR);
-            $preparation.bindValue(':receiver', $receiver, PDO::PARAM_STR);
+            $preparation->bindValue(':sender', $sender, PDO::PARAM_STR);
+            $preparation->bindValue(':receiver', $receiver, PDO::PARAM_STR);
             $preparation->execute();
             return true;
         }
@@ -131,8 +123,8 @@ class Friendship {
         try {
             $query = "DELETE FROM friendRequest WHERE (receiver = :receiver and sender = :sender)";
             $preparation = $this->db->prepare($query);
-            $preparation.bindValue(':sender', $senderUsername, PDO::PARAM_STR);
-            $preparation.bindValue(':receiver', $myUsername, PDO::PARAM_STR);
+            $preparation->bindValue(':sender', $senderUsername, PDO::PARAM_STR);
+            $preparation->bindValue(':receiver', $myUsername, PDO::PARAM_STR);
             $preparation->execute();
             return true;    
         
@@ -152,10 +144,10 @@ class Friendship {
                 
             ";
             $preparation = $this->db->prepare($query);
-            $preparation.bindValue(':sender', $senderUsername, PDO::PARAM_STR);
-            $preparation.bindValue(':receiver', $myUsername, PDO::PARAM_STR);
-            $preparation.bindValue(':user_one', $senderUsername, PDO::PARAM_STR);
-            $preparation.bindValue(':user_two', $myUsername, PDO::PARAM_STR);
+            $preparation->bindValue(':sender', $senderUsername, PDO::PARAM_STR);
+            $preparation->bindValue(':receiver', $myUsername, PDO::PARAM_STR);
+            $preparation->bindValue(':user_one', $senderUsername, PDO::PARAM_STR);
+            $preparation->bindValue(':user_two', $myUsername, PDO::PARAM_STR);
             $preparation->execute();
             return true;
         }
@@ -169,8 +161,8 @@ class Friendship {
         try {
             $query = "SELECT * FROM friendRequest WHERE (sender = :userOne AND receiver = :userTwo) OR (sender = :userTwo AND receiver = :userOne)";
             $preparation = $this->db->prepare($query);
-            $preparation.bindValue(':sender', $myID, PDO::PARAM_STR);
-            $preparation.bindValue(':receiver', $userID, PDO::PARAM_STR);
+            $preparation->bindValue(':sender', $myID, PDO::PARAM_STR);
+            $preparation->bindValue(':receiver', $userID, PDO::PARAM_STR);
             $preparation->execute();
             if($preparation->rowCount() === 2) 
                 return true;
@@ -186,17 +178,15 @@ class Friendship {
     
     function getAllFriendRequest($myUsername) {
         try {
-            $query = "SELECT * FROM friendRequest WHERE receiver = ?";
+            $query = "SELECT sender FROM friendRequest WHERE receiver = ?";
             $preparation = $this->db->prepare($query);
             $preparation->execute([$myUsername]);
             $returnData = [];
             if($preparation->rowCount() > 0) {
                 $friendRequestList = $preparation->fetchAll(PDO::FETCH_ASSOC);
-                foreach($friendRequestList as $rows)      
-                    array_push($returnData, $rows["sender"]);           
+                foreach($friendRequestList as $key => $value)      
+                    array_push($returnData, $value);           
             }
-            else 
-                array_push($returnData, "There is no request existing");
             return $returnData;    
             
         }
