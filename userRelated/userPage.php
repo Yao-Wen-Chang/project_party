@@ -25,7 +25,7 @@
                 else if($friend_obj->alreadySendRequest($_SESSION["username"], $_POST["selectedUser"]))    
                     echo "<label>Already Send Friend Request</label>";
                 else
-                    echo '<input id="buttonOfSendFriendRequest" type="button" value="Send Friend Request" onclick='.$friend_obj->sendRequest($_SESSION["username"], $_POST["selectedUser"]);<script type="text/javascript">changeAttribute();</script>.'>';    
+                    echo '<input id="buttonOfSendFriendRequest" type="button" value="Send Friend Request" onclick=disableButton();'.$friend_obj->sendRequest($_SESSION["username"], $_POST["selectedUser"]).'>';    
                     
                     //document.getElementById("Button").disabled = true;
             ?>             
@@ -61,9 +61,8 @@
     </body>
 </html>
 <script>
-    function changeAttribute() {
-        document.getElementById("buttonOfSendFriendRequest").disabled = false;
-    
+    function disableButton() {
+        document.getElementById("buttonOfSendFriendRequest").disabled = true;
     }
 
 </script>
