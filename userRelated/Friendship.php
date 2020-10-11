@@ -86,8 +86,8 @@ class Friendship {
         try {
             $query = "SELECT * FROM friendRequest WHERE (sender = :myID AND receiver = :userID) OR (sender = :userID AND receiver = :myID)";
             $preparation = $this->db->prepare($query);
-            $preparation->bindValue(':sender', $myID, PDO::PARAM_STR);
-            $preparation->bindValue(':receiver', $userID, PDO::PARAM_STR);
+            $preparation->bindValue(':myID', $myID, PDO::PARAM_STR);
+            $preparation->bindValue(':userID', $userID, PDO::PARAM_STR);
             $preparation->execute();
             if($preparation->rowCount() === 1) 
                 return true;
@@ -108,8 +108,8 @@ class Friendship {
         try {
             $query = "INSERT INTO friendRequest (sender, receiver) VALUES (:sender, :receiver)";
             $preparation = $this->db->prepare($query);
-            $preparation->bindValue(':sender', $sender, PDO::PARAM_STR);
-            $preparation->bindValue(':receiver', $receiver, PDO::PARAM_STR);
+            $preparation->bindValue(':sender', $my_id, PDO::PARAM_STR);
+            $preparation->bindValue(':receiver', $receiver_id, PDO::PARAM_STR);
             $preparation->execute();
             return true;
         }

@@ -1,8 +1,7 @@
 <?php
     require "initUser.php";
-    $selectedUser = $_POST["selectedUser"];
-    $friendList = $friend_obj->getAllFriend($selectedUser);
-    $personalInformation = $user_obj->getUserInformation($selectedUser);
+    $friendList = $friend_obj->getAllFriend($_POST["selectedUser"]);
+    $personalInformation = $user_obj->getUserInformation($_POST["selectedUser"]);
     
 ?>
 
@@ -18,6 +17,18 @@
             <div class="personalPhoto">
                 <img src="data:image/png;base64" alt="this is user photo" class="userPhoto">
             </div>           
+        </div>
+        <div>
+            <?php
+                if($friend_obj->isAlreadyFriend($_SESSION["username"], $_POST["selectedUser"])) 
+                    echo "<label>Already Been Friend</label>";
+                else if($friend_obj->alreadySendRequest($_SESSION["username"], $_POST["selectedUser"]))    
+                    echo "<label>Already Send Friend Request</label>";
+                else
+                    echo '<input id="buttonOfSendFriendRequest" type="button" value="Send Friend Request" onclick='.$friend_obj->sendRequest($_SESSION["username"], $_POST["selectedUser"]);<script type="text/javascript">changeAttribute();</script>.'>';    
+                    
+                    //document.getElementById("Button").disabled = true;
+            ?>             
         </div>
         <div class="personalInformation"> 
             <?php
@@ -45,10 +56,17 @@
                 echo "<br>";
             ?>
         </div>   
-        <>
+        
     
     </body>
 </html>
+<script>
+    function changeAttribute() {
+        document.getElementById("buttonOfSendFriendRequest").disabled = false;
+    
+    }
+
+</script>
 <style>
     body {
         background-image: url(../backgroundPhoto/personalPage.jpg);
