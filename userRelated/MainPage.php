@@ -1,74 +1,93 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Let's Party</title>
         <meta charset = "utf-8">
-        <title>Main Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <div class = "wholePageWrapper">
-            <div class = "upperSection">
-                Join the Party!
-            </div>
-            <div class = "middleSection">
-                <div class = "buttonOfCreateParty">
-                    <button type="button"><a href = "../partyRelated/CreatePartyInterface.html">Create Party</button>
-                </div> 
-                <div class = "buttonOfSearchUser">   
-                    <button type="button"><a href = "./SearchNewFriendPage.php">Search User</button>
-                </div>   
-                <div class = "buttonOfSearchParty"> 
-                    <button type = "button"><a href = "../partyRelated/SearchExistingParty.php">Party List</button>
-                </div>
-                <div class = "buttonOfProfile">    
-                    <button type = "button"><a href = "./userInformationPage.php">Profile</button>
-                </div>    
-                <div class = "buttonOfFriendRequest">    
-                    <button type = "button"><a href = "./interfaceOfFriendRequest.php">Friend Request</button>                   
-                </div> 
-                <div class = "buttonOfPartyRequest">    
-                    <button type = "button"><a href = "../partyRelated/existingPartyList.php">Party Request</button>
-                </div>   
-            <div class = "buttonSection">
-                This website is create by Wen
-            </div>
+        
+        <div class = "header">
+            Let's Party
         </div>
+        <div class = "navSection">
+            
+                <button type="button" disabled></button>                      
+                <button type="button"><a href = "../partyRelated/CreatePartyInterface.html">createParty</button>           
+                <button type="button"><a href = "./SearchNewFriendPage.php">searchUser</button>         
+                <button type = "button"><a href = "../partyRelated/SearchExistingParty.php">searchExistParty</button>           
+                <button type = "button"><a href = "./userInformationPage.php">Profile</button>      
+                <button type = "button"><a href = "./interfaceOfFriendRequest.php">friendRequest</button>                              
+                <button type = "button"><a href = "../partyRelated/existingPartyList.php"></button>         
+        </div>  
     </body>
 </html>
+
+
 <style>
-.upperSection {
-    background-color: black;
-    opacity: 1;
-    border: 50px, 200px, 50px, 200px;
-    box-sizing: border-box;
-}
 
-.middleSection {
-    background-color: white;
+    body {
+        background-image: url("../backgroundPhoto/mainPage.jpg");
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
 
-}
+    }
+    .header {
+        background-color: black;
+        background-attachment: fixed;
+        background-size: cover;
+        text-align: center;
+    }
+    .navSection {
+        background-attachment: fixed;
+        background-size: cover;
+        overflow: hidden;
+        background-color: #333;
+    }
 
-.buttonSection {
-    background-color: black;
-    opacity: 1;
-    border: 50px, 200px, 50px, 200px;
+    .navSection button {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        background-position: center;
+    }
+    
+    .homeBtn {
+        background-image: url("../icon/home.png");
+        width: 25px;
+        height: 25px;
 
-}
+    }
 
-.buttonOfCreateParty {
-    border-radius: 15px;
-}
-.buttonOfSearchUser {
-    border-radius: 15px;
-}
+    .buttonOfCreateParty {
+        background-image: url("../icon/home.png");
+        width: 25px;
+        height: 25px;
+    }
+    .buttonOfSearchUser {
+        background-image: url("../icon/home.png");
+        width: 25px;
+        height: 25px;
+    }
 
-.buttonOfSearchParty {
-    border-radius: 50px, 15px, 5px, 30px;
-}
+    .buttonOfSearchParty {
+        background-image: url("../icon/home.png");
+        width: 25px;
+        height: 25px;;
+    }
 
-.buttonOfProfile {
-    border-radius: 15px 50px 30px 5px;
+    .buttonOfProfile {
+        background-image: url("../icon/home.png");
+        width: 25px;
+        height: 25px;
 
-}
+    }
 </style>
 
 

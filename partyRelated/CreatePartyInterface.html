@@ -7,7 +7,16 @@
     <body>
         <form action = "./CreatePartyProcessing.php" method = "post">
             PartyName: <input type = "text" name = "partyName"> <br>
+            PartyType: 
+                <select id = "myList" name="partyType">
+                    <option value = "boardGame">桌遊</option>
+                    <option value = "dineTogether">聚餐</option>
+                    <option value = "movie">電影</option>
+                    <option value = "outdoorActivity">戶外活動</option>
+                </select>
+                </br>
             LimitedParticipation: <input type = "text" name = "memberQuantity"> <br>
+            
             <input type = "submit">
         </form> 
     </body>

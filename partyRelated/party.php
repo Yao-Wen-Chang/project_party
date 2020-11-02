@@ -8,10 +8,11 @@ class Party {
     
     function createNewParty($party_name, $member_limit) {
         try {
-            $query = "INSERT INTO party_online (party_name , member_limit) VALUES (:party_name, :member_limit)"
+            $query = "INSERT INTO party_online (party_name , member_limit, current_member_number) VALUES (:party_name, :member_limit, :current_member_number)"
             $preparation = $this->db->prepare($query);
             $preparation->bindValue(":party_name", $party_name);
 		    $preparation->bindValue(":member_limit", $member_limit);
+		    $preparation->bindValue(":current_member_number", 1);
 		    $preparation->execute();
             
         
