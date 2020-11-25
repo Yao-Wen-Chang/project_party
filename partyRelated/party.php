@@ -8,10 +8,10 @@ class Party {
     
     function createNewParty($party_name, $member_limit) {
         try {
-            $query = "INSERT INTO party_online (party_name , member_limit, current_member_number) VALUES (:party_name, :member_limit, :current_member_number)"
+            $query = "INSERT INTO party_online (party_name , member_limit, current_member_number) VALUES (:party_name, :member_limit, :current_member_number)";
             $preparation = $this->db->prepare($query);
             $preparation->bindValue(":party_name", $party_name);
-		    $preparation->bindValue(":member_limit", $member_limit);
+    	    $preparation->bindValue(":member_limit", $member_limit);
 		    $preparation->bindValue(":current_member_number", 1);
 		    $preparation->execute();
             
@@ -24,14 +24,15 @@ class Party {
     }
     
     
-    function searchParty($party_id) {
+    function searchParty($party_name) {
         try {
-            $query = "SELECT * FROM party_online WHERE id = ?";
+            $query = "SELECT * FROM party_online WHERE party_name LIKE concate('%', ?, '%')";
             $preparation = $this->db->prepare($query); 
-            $preparation->execute([$party_id]);
+            $preparation->execute([$party_name]);
             if($preparation->rowCount() >= 1){
                 $party = $preparation->fetchAll(PDO::FETCH_OBJ);
-                return $party;
+                if($party->party_name)
+                    return $party;
             }
             else 
                 return false;

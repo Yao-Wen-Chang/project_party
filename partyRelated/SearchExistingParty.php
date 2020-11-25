@@ -5,24 +5,32 @@
         <title>Main Page</title>
     </head>
     <body>
-        <?php
-            require "initParty.php";
-            $partyList = $party_obj->getAllParty();
-            foreach($partyList as $val) {
-                echo "<tr>
-                          <td>".$val->party_name."</td>
-                          <td>".$val->party_holder."</td>  
-                          <td>".$val->current_member_number."</td> 
-                          <td>".$val->member_limit."</td>        
-                      </tr>  
-                ";
-                
-                
-                        
-            
-            }
-            
-        ?> 
+	    <form>
+            <input type="text" size="30" onkeyup="searchExistParty(this.value)">
+            <div id="livesearch"></div>
+        </form>
+ 
        
     </body>
 </html>
+
+<script>
+    function searchExistParty(name) {
+        if(name.length == 0) {
+            document.getElementById("livesearch").innerHTML="";
+            document.getElementById("livesearch").style.border="0px";
+            return;
+        }
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200) {
+                document.getElementById("livesearch").innerHTML = this.responseText;
+                document.getElementById("livesearch").style.border = "1px solid #A5ACB2";
+          
+            }
+        }
+
+        xmlhttp.open("GET", "exist_party.php?q=" + name, true);
+        xmlhttp.send();
+    }
+</script>
