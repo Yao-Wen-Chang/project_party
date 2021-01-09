@@ -1,5 +1,5 @@
 <?php
-    require "initUser.php";
+    require "init.php";
     $friendList = $friend_obj->getAllFriend($_POST["selectedUser"]);
     $personalInformation = $user_obj->getUserInformation($_POST["selectedUser"]);
     
