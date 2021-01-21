@@ -6,8 +6,8 @@ class User {
 
     private $db;
 
-    function __construct ($dn_connection) {
-        $this->db = $dn_connection;
+    function __construct ($dbConnect) {
+        $this->db = $dbConnect;
     }
     function Login ($_email, $_password) {
         $this->email = trim($_email);
