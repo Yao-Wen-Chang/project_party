@@ -123,48 +123,6 @@
                 margin-right 16px;
                 box-sizing: inherit;
             }
-            .party-relate {
-                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-                color: #000;
-                background-color: #fff;
-                border-radius: 4px;
-                box-sizing: inherit;
-                padding: 0.01em 16px;
-            }
-
-            .event-icon {
-                width: 1.29em;
-                text-align: center;
-                color: #607d8b;
-                margin-right 16px;
-                box-sizing: inherit;
-            }
-            .photo-icon {
-                width: 1.29em;
-                text-align: center;
-                color: #607d8b;
-                margin-right 16px;
-                box-sizing: inherit;
-            }
-            .history-icon {
-                width: 1.29em;
-                text-align: center;
-                color: #607d8b;
-                margin-right 16px;
-                box-sizing: inherit;
-            }
-            .recommender {
-                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-                color: #000;
-                background-color: #fff;
-                border-radius: 4px;
-                box-sizing: inherit;
-                padding: 0.01em 16px;
-            }
-            .title-recommender {
-                text-align: center;
-
-            }
         </style>
     <head>
     <body>
@@ -196,27 +154,10 @@
                     </p>
                 </div>
                 <br>
-                <div class="party-relate">
-                    <p> 
-                        <i class="fa fa-calendar event-icon">   My Event</i>
-                        <!--put occuation var here-->
-                    </p>
-                    <p>
-                        <i class="fa fa-photo photo-icon">  My Photo</i>
-                        <!--put location var here-->
-                    </p>
-                    <p>
-                        <i class="fa fa-history history-icon">  History Event</i>
-                        <!--put birth var here-->
-                    </p>
+                <div>
+                </div>
 
-                </div>
-                <br>
-                <div class="recommender">
-                    <h4 class="title-recommender">Interesting Events</h4>
-                </div>
-            </div>
-            <div class="mid-col">
+
             </div>
         </div>
     </body>
