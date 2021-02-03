@@ -1,0 +1,14 @@
+USE OnlineDating
+DROP TABLE Parties;
+CREATE TABLE Parties (
+    ID int NOT NULL AUTO_INCREMENT,
+    Party-name varchar(255) NOT NULL,
+    Password varchar(255) NOT NULL,
+    Gender enum('male', 'female') NOT NULL,
+    Email varchar(255),
+    Birth date,
+    Job varchar(255) NOT NULL,
+    City varchar(255),
+    Avatar blob, 
+    PRIMARY KEY (ID)
+);

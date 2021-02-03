@@ -163,6 +163,35 @@
             }
             .title-recommender {
                 text-align: center;
+            }
+            .mid-col {
+                width: 60%;
+                padding: 0 8px;
+                box-sizing: inherit;
+            }
+            .search-bar-container {
+                background-color: #fff;
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+                border-radius: 4px;
+                box-sizing: inherit;
+            }
+            .search-bar {
+                padding: 8px 16px;
+                box-sizing: inherit;
+                border: 1px solid;
+            }
+            .search-icon {
+                border: none;
+                display: inline-block;
+                padding: 8px 16px;
+                vertical-align: middle;
+                overflow: hidden;
+                text-decoration: none;
+                color: inherit;
+                background-color: inherit;
+                text-align: center;
+                cursor: pointer;
+                white-space: nowrap;
 
             }
         </style>
@@ -217,6 +246,15 @@
                 </div>
             </div>
             <div class="mid-col">
+                <div class="search-bar-container">
+                    <div class="search-bar">
+                        <input placeholder="Search...">
+                        <button type="submit"><i class="fa fa-search search-icon"></i></button>
+                    </div>
+                </div> 
+                <div　class="party-list">
+                </div>
+
             </div>
         </div>
     </body>

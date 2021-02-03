@@ -49,7 +49,7 @@ class Party {
     
     function getAllParty() {
         try {
-            $query = "SELECT * FROM party_online";
+            $query = "SELECT * FROM exist_parties";
             $preparation = $this->db->prepare($query); 
             $preparation->execute();
             $party = $preparation->fetchAll(PDO::FETCH_OBJ);

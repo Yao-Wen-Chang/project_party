@@ -1,10 +1,10 @@
 <?php
     session_start();
     session_regenerate_id(true);
-    require "./userRelated/User.php";
-    require "./userRelated/Friendship.php";
-    require "./partyRelated/Party.php";
-    require "./postRelated/Post.php"
+    require "userRelated/User.php";
+    require "userRelated/Friendship.php";
+    require "partyRelated/Party.php";
+    require "postRelated/Post.php";
     require "dbConnect.php";
     
     $db = new Database();
