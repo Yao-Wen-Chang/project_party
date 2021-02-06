@@ -168,6 +168,7 @@
                 width: 60%;
                 padding: 0 8px;
                 box-sizing: inherit;
+                float: left;
             }
             .search-bar-container {
                 background-color: #fff;
