@@ -1,3 +1,12 @@
+<?php
+
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    require "../init.php";
+    $allPartyObj = $partyObj->getAllParty()
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -195,6 +204,39 @@
                 white-space: nowrap;
 
             }
+
+            .party-list {
+                float: left;
+                border: none;
+                display: inline-block;
+                vertical-align: middle;
+                overflow: hidden;
+                text-decoration: none;
+                color: inherit;
+                background-color: inherit;
+                text-align: center;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+            .party-info {
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+                color: #000;
+                background-color: #fff;
+                border-radius: 4px;
+                box-sizing: inherit;
+                padding: 0.01em 16px;
+
+            }
+            .party-intro {
+
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+                color: #000;
+                background-color: #fff;
+                border-radius: 4px;
+                box-sizing: inherit;
+                padding: 0.01em 16px;
+
+            }
         </style>
     <head>
     <body>
@@ -254,6 +296,32 @@
                     </div>
                 </div> 
                 <div　class="party-list">
+                    <?php
+                        
+                        //Party_name , Holder , Party_type
+                        //Party_time , Location , Limit_members_num , Curr_members_num
+                        //Description    
+                        foreach($allPartyObj as $partyBlock) {
+                            echo '
+                                <div class = "party-info">
+                                    <ol>
+                                        <li>'.$partyBlock->Party_name.'</li>
+                                        <li>'.$partyBlock->Holder.'</li>
+                                        <li>'.$partyBlock->Party_time.'</li>
+                                        <li>'.$partyBlock->Location.'</li>
+                                    </ol>
+                                </div>
+                                <div class = "party-intro">
+                                    '.$partyBlock->Description.'
+                                </div>
+                                <br>
+                            ';
+                        
+
+                        }
+
+
+                    ?>
                 </div>
 
             </div>

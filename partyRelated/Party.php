@@ -8,7 +8,7 @@ class Party {
     
     function createNewParty($party_name, $member_limit) {
         try {
-            $query = "INSERT INTO party_online (party_name , member_limit, current_member_number) VALUES (:party_name, :member_limit, :current_member_number)";
+            $query = "INSERT INTO Parties (party_name , member_limit, current_member_number) VALUES (:party_name, :member_limit, :current_member_number)";
             $preparation = $this->db->prepare($query);
             $preparation->bindValue(":party_name", $party_name);
     	    $preparation->bindValue(":member_limit", $member_limit);
@@ -26,7 +26,7 @@ class Party {
     
     function searchParty($party_name) {
         try {
-            $query = "SELECT * FROM party_online WHERE party_name LIKE concate('%', ?, '%')";
+            $query = "SELECT * FROM Parties WHERE party_name LIKE concate('%', ?, '%')";
             $preparation = $this->db->prepare($query); 
             $preparation->execute([$party_name]);
             if($preparation->rowCount() >= 1){
@@ -49,7 +49,7 @@ class Party {
     
     function getAllParty() {
         try {
-            $query = "SELECT * FROM exist_parties";
+            $query = "SELECT * FROM Parties";
             $preparation = $this->db->prepare($query); 
             $preparation->execute();
             $party = $preparation->fetchAll(PDO::FETCH_OBJ);
