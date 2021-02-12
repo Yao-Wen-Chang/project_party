@@ -9,7 +9,7 @@ class User {
     function __construct ($dbConnect) {
         $this->db = $dbConnect;
     }
-    function Login ($_email, $_password) {
+    function Signin ($_email, $_password) {
         $this->email = trim($_email);
         $this->password = trim($_password);
         if(!empty($this->email) && !empty($this->password)) {
