@@ -1,11 +1,11 @@
 <?php
-    require "initUser.php";
-    $login = $user_obj->Login($_POST["email"], $_POST["password"]);
+    require "../init.php";
+    $login = $userObj->Signin($_POST["email"], $_POST["password"]);
     if(!$login) {
         echo '
         <script type = "text/javascript">
             alert("Wrong Input!");
-            window.location.href = "./LoginPage.html";       
+            window.location.href = "./LoginPage.php";       
         </script>
         '; 
 

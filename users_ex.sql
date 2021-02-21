@@ -1,0 +1,19 @@
+INSERT INTO Users (
+    Username,
+    Password,
+    Gender,
+    Email, 
+    Birth,
+    Job,
+    city
+)
+VALUES
+(
+    'chanyaowen',
+    'wen870629',
+    'male',
+    'chenyaowen123@yahoo.com.tw',
+    '1998-06-29',
+    'teacher',
+    'Taipei'
+);

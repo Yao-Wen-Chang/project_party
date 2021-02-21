@@ -6,13 +6,15 @@ class Party {
         $this->db = $dn_connection;
     }
     
-    function createNewParty($party_name, $member_limit) {
+    function createNewParty($name, $type, $loc, $memberLimit, $description) {
         try {
-            $query = "INSERT INTO Parties (party_name , member_limit, current_member_number) VALUES (:party_name, :member_limit, :current_member_number)";
+            $query = "INSERT INTO Parties (Party_name , Holder, Party-type, Location, Limit_members_num, Description) VALUES (:Party_name , :Holder, :Party-type, :Location, :Limit_members_num, :Description)";
             $preparation = $this->db->prepare($query);
-            $preparation->bindValue(":party_name", $party_name);
-    	    $preparation->bindValue(":member_limit", $member_limit);
-		    $preparation->bindValue(":current_member_number", 1);
+            $preparation->bindValue(":Party_name", $name);
+            $preparation->bindValue(":Party_type", $type);
+            $preparation->bindValue(":Location", $loc);
+    	    $preparation->bindValue(":Limit_members_num", $memberLimit);
+    	    $preparation->bindValue(":Description", $description);
 		    $preparation->execute();
             
         

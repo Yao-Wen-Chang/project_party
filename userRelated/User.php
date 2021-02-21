@@ -14,21 +14,21 @@ class User {
         $this->password = trim($_password);
         if(!empty($this->email) && !empty($this->password)) {
 			try {	
-				$query = "SELECT * FROM users WHERE email = ?";
+				$query = "SELECT * FROM Users WHERE Email = ?";
 				$preparation = $this->db->prepare($query);
 				$preparation->execute([$this->email]);
 				
 				if($preparation->rowCount() === 1) {
 				    $db_row = $preparation->fetch(PDO::FETCH_ASSOC);
-					$password_match = password_verify($this->password, $db_row['password']);
+					$db_row['Password'] = password_hash($db_row['Password'], PASSWORD_DEFAULT);
+					$password_match = password_verify($this->password, $db_row['Password']);
 				    if($password_match) {
-				        $_SESSION["username"] = $db_row["username"];
-				        $_SESSION["email"] = $db_row["email"];
-				        $_SESSION["password"] = $db_row["password"];
-				        $_SESSION["gender"] = $db_row["gender"];
-				        $_SESSION["birth"] = $db_row["birth"];
-				        $_SESSION["photo"] = $db_row["photo"];
-				        $_SESSION["autobiography"] = $db_row["autobiography"];
+				        $_SESSION["username"] = $db_row["Username"];
+				        $_SESSION["email"] = $db_row["Email"];
+				        $_SESSION["password"] = $db_row["Password"];
+				        $_SESSION["gender"] = $db_row["Gender"];
+				        $_SESSION["birth"] = $db_row["Birth"];
+				        $_SESSION["avatar"] = $db_row["Avatar"];
 				         
 				        return TRUE; 
 				    }

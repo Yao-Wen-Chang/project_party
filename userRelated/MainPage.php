@@ -1,314 +1,396 @@
+<?php
+
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    require "../init.php";
+    $allPartyObj = $partyObj->getAllParty()
+?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>W3.CSS Template</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
-        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+        <title>Main page.php</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+            var modal = document.getElementById('id01');
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
         <style>
-        html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+            html {
+                font-size: 15px;
+                line-height: 1.5;
+                box-sizing: border-box;
+
+            }
+            body {
+                background-color: #f5f7f8;
+                font-size: 15px;
+                margin: 0;
+                box-sizing: inherit;
+                line-height: 1.5;
+
+            }
+            .top-side {
+                top: 0;
+                position: fixed;
+                width: 100%;
+                background-color: #000;
+                box-sizing: inherit;
+                font-size: 15px;
+            }
+            .nav-bar {
+                color: white;
+                font-size: 18px;
+                width: auto;
+                border: none;
+                box-sizing: inherit;
+                float: left;
+                padding: 12px 24px;
+            }
+            .user-search {
+                color: white;
+                font-size: 18px;
+                width: auto;
+                border: none;
+                float: left;
+                padding: 12px 24px;
+            }
+            .notification {
+                color: white;
+                font-size: 18px;
+                width: auto;
+                border: none;
+                float: left;
+                padding: 12px 24px;
+            }
+            .party-create-btn {
+                color: white;
+                font-size: 20px;
+                width: auto;
+                border: none;
+                float: left;
+                padding: 12px 24px;
+
+            }
+            .party-create-block {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                padding-top: 60px;
+            }
+            .container {
+                padding: 16px;
+            }
+            .party-info {
+                background-color: #fefefe;
+                margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+                border: 1px solid #888;
+                width: 80%; /* Could be more or less, depending on screen size */
+            }
+
+            .log-out {
+                color: white;
+                font-size: 18px;
+                width: auto;
+                border: none;
+                float: right;
+                padding: 12px 24px;
+            }
+            .page-container {
+                max-width: 1400px;
+                margin-top: 80px;
+                padding: 0.01em 16px;
+                box-sizing: inherit;
+                margin-left: auto;
+                margin-right: auto;
+
+
+
+            }
+            .left-col {
+                width: 25%;
+                float: left;
+                box-sizing: inherit;
+
+            }
+            .profile {
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+                color: #000;
+                background-color: #fff;
+                border-radius: 4px;
+                box-sizing: inherit;
+                padding: 0.01em 16px;
+
+            }
+            .user-name {
+                text-align: center;
+
+            }
+            .user-img-container {
+                text-align: center;
+                box-sizing: inherit;
+            }
+            .user-img {
+                vertical-align: middle;
+                height: 106px;
+                width: 106px;
+                border-style: none;
+                box-sizing: inherit;
+                border-radius: 50%; 
+            }
+            .pen-icon {
+                width: 1.29em;
+                text-align: center;
+                color: #607d8b;
+                margin-right 16px;
+                box-sizing: inherit;
+            }
+            .home-icon {
+                width: 1.29em;
+                text-align: center;
+                color: #607d8b;
+                margin-right 16px;
+                box-sizing: inherit;
+            }
+            .cake-icon {
+                width: 1.29em;
+                text-align: center;
+                color: #607d8b;
+                margin-right 16px;
+                box-sizing: inherit;
+            }
+            .party-relate {
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+                color: #000;
+                background-color: #fff;
+                border-radius: 4px;
+                box-sizing: inherit;
+                padding: 0.01em 16px;
+            }
+
+            .event-icon {
+                width: 1.29em;
+                text-align: center;
+                color: #607d8b;
+                margin-right 16px;
+                box-sizing: inherit;
+            }
+            .photo-icon {
+                width: 1.29em;
+                text-align: center;
+                color: #607d8b;
+                margin-right 16px;
+                box-sizing: inherit;
+            }
+            .history-icon {
+                width: 1.29em;
+                text-align: center;
+                color: #607d8b;
+                margin-right 16px;
+                box-sizing: inherit;
+            }
+            .recommender {
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+                color: #000;
+                background-color: #fff;
+                border-radius: 4px;
+                box-sizing: inherit;
+                padding: 0.01em 16px;
+            }
+            .title-recommender {
+                text-align: center;
+            }
+            .mid-col {
+                width: 60%;
+                padding: 0 8px;
+                box-sizing: inherit;
+                float: left;
+            }
+            .search-bar-container {
+                background-color: #fff;
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+                border-radius: 4px;
+                box-sizing: inherit;
+            }
+            .search-bar {
+                padding: 8px 16px;
+                box-sizing: inherit;
+                border: 1px solid;
+            }
+            .search-icon {
+                border: none;
+                display: inline-block;
+                padding: 8px 16px;
+                vertical-align: middle;
+                overflow: hidden;
+                text-decoration: none;
+                color: inherit;
+                background-color: inherit;
+                text-align: center;
+                cursor: pointer;
+                white-space: nowrap;
+
+            }
+
+            .party-list {
+                float: left;
+                border: none;
+                display: inline-block;
+                vertical-align: middle;
+                overflow: hidden;
+                text-decoration: none;
+                color: inherit;
+                background-color: inherit;
+                text-align: center;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+            .party-info {
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+                color: #000;
+                background-color: #fff;
+                border-radius: 4px;
+                box-sizing: inherit;
+                padding: 0.01em 16px;
+
+            }
+            .party-intro {
+
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+                color: #000;
+                background-color: #fff;
+                border-radius: 4px;
+                box-sizing: inherit;
+                padding: 0.01em 16px;
+
+            }
         </style>
-    </head>    
-    <body class="w3-theme-l5">
+    <head>
+    <body>
+        <div class="top-side">
+            <a class="nav-bar"><i class="fa fa-bars"> </i></a>
+            <a class="user-search"><i class="fa fa-search"> </i></a>
+            <a class="notification" href="#"><i class="fa fa-bell-o"></i></a>
+            <button class="party-create-btn" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-plus-square-o"></i></button>
+            <div id="id01" class="party-create-block">
 
-    <!-- Navbar -->
-        <div class="w3-top">
-            <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-            <a href="/" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"></a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
-            <a href="/profile.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
-            <div class="w3-dropdown-hover w3-hide-small">
-                <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">3</span></button>     
-                <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
-                <a href="#" class="w3-bar-item w3-button">One new friend request</a>
-                <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
-                <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
-                </div>
-            </div>
-            <a href="/LoginPage.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="Log Out">
-                <img src="/w3images/avatar2.png" class="w3-circle" style="height:23px;width:23px" alt="Log Out">
-            </a>
-            </div>
-        </div>
+                <form class="party-info animate" action="../partyRelated/CreateParty.php" method="post">
+                    <div class="container">
+                        <label for="party-name"><b>Party Name</b></label>
+                        <input type="text" placeholder="Enter party name" name="partyName" required>
 
-        <!-- Navbar on small screens -->
-        <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
-        </div>
+                        <label for="party-type"><b>Party Type</b></label>
+                        <input type="text" placeholder="Enter party type" name="partyType" required>
 
-        <!-- Page Container -->
-        <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
-          <!-- The Grid -->
-            <div class="w3-row">
-            <!-- Left Column -->
-                <div class="w3-col m3">
-              <!-- Profile -->
-                <div class="w3-card w3-round w3-white">
-                    <div class="w3-container">
-                    <h4 class="w3-center">My Profile</h4>
-                    <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
-                    <hr>
-                    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
-                    <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-                    <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+                        <label for="loc"><b>Location</b></label>
+                        <input type="text" placeholder="Enter location" name="loc" required>
+
+                        <label for="limit-mem"><b>Limit Member</b></label>
+                        <input type="text" placeholder="Enter utmost member number" name="limitMem" required>
+
+                        <label for="description"><b>Description</b></label>
+                        <input type="text" placeholder="Descript the party" name="description" required>
+
+                        <button type="submit">Create</button>
                     </div>
+
+                </form>
+            </div>
+            <a class="log-out" href="#"><i class="fa fa-power-off"></i></a>
+        </div>
+        <div class="page-container">
+            <div class="left-col">
+                <div class="profile">
+                    <h4 class="user-name">avatar</h4>
+                    <p class="user-img-container">
+                        <img class="user-img" src="#" style="height: 106px;width: 106px"></img>    
+                    </p>
+                    <hr>
+                    <p>
+                        <i class="fa fa-pencil pen-icon"></i>
+                        <!--put occuation var here-->
+                    </p>
+                    <p>
+                        <i class="fa fa-home hone-icon"></i>
+                        <!--put location var here-->
+                    </p>
+                    <p>
+                        <i class="fa fa-birthday-cake cake-icon"></i>
+                        <!--put birth var here-->
+                    </p>
                 </div>
                 <br>
-              
-              <!-- Accordion -->
-              <div class="w3-card w3-round">
-                <div class="w3-white">
-                  <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Groups</button>
-                  <div id="Demo1" class="w3-hide w3-container">
-                    <p>Some text..</p>
-                  </div>
-                  <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
-                  
-                  <div id="Demo2" class="w3-hide w3-container">
-                    <p>Some other text..</p>
-                  </div>
-                  <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</button>
-                  <div id="Demo3" class="w3-hide w3-container">
-                 <div class="w3-row-padding">
-                 <br>
-                   <div class="w3-half">
-                     <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
-                   </div>
-                   <div class="w3-half">
-                     <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-                   </div>
-                   <div class="w3-half">
-                     <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
-                   </div>
-                   <div class="w3-half">
-                     <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
-                   </div>
-                   <div class="w3-half">
-                     <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-                   </div>
-                   <div class="w3-half">
-                     <img src="/w3images/snow.jpg" style="width:100%" class="w3-margin-bottom">
-                   </div>
-                 </div>
-                  </div>
-                </div>      
-              </div>
-              <br>
-              
-              <!-- Interests --> 
-              <div class="w3-card w3-round w3-white w3-hide-small">
-                <div class="w3-container">
-                  <p>Interests</p>
-                  <p>
-                    <span class="w3-tag w3-small w3-theme-d5">News</span>
-                    <span class="w3-tag w3-small w3-theme-d4">W3Schools</span>
-                    <span class="w3-tag w3-small w3-theme-d3">Labels</span>
-                    <span class="w3-tag w3-small w3-theme-d2">Games</span>
-                    <span class="w3-tag w3-small w3-theme-d1">Friends</span>
-                    <span class="w3-tag w3-small w3-theme">Games</span>
-                    <span class="w3-tag w3-small w3-theme-l1">Friends</span>
-                    <span class="w3-tag w3-small w3-theme-l2">Food</span>
-                    <span class="w3-tag w3-small w3-theme-l3">Design</span>
-                    <span class="w3-tag w3-small w3-theme-l4">Art</span>
-                    <span class="w3-tag w3-small w3-theme-l5">Photos</span>
-                  </p>
+                <div class="party-relate">
+                    <p> 
+                        <i class="fa fa-calendar event-icon">   My Event</i>
+                        <!--put occuation var here-->
+                    </p>
+                    <p>
+                        <i class="fa fa-photo photo-icon">  My Photo</i>
+                        <!--put location var here-->
+                    </p>
+                    <p>
+                        <i class="fa fa-history history-icon">  History Event</i>
+                        <!--put birth var here-->
+                    </p>
+
                 </div>
-              </div>
-              <br>
-              
-              <!-- Alert Box -->
-              <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
-                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
-                  <i class="fa fa-remove"></i>
-                </span>
-                <p><strong>Hey!</strong></p>
-                <p>People are looking at your profile. Find out who.</p>
-              </div>
-            
-            <!-- End Left Column -->
+                <br>
+                <div class="recommender">
+                    <h4 class="title-recommender">Interesting Events</h4>
+                </div>
             </div>
-            
-            <!-- Middle Column -->
-            <div class="w3-col m7">
-            
-              <div class="w3-row-padding">
-                <div class="w3-col m12">
-                  <div class="w3-card w3-round w3-white">
-                    <div class="w3-container w3-padding">
-                      <form action="../postRelated/Post.php" method="post">
-                      <p contenteditable="true" class="w3-border w3-padding">post something ...</p>
-                      <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button>
-                      <button type="button" class="w3-button w3-theme">Browse</button>
+            <div class="mid-col">
+                <div class="search-bar-container">
+                    <div class="search-bar">
+                        <input placeholder="Search...">
+                        <button type="submit"><i class="fa fa-search search-icon"></i></button>
                     </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-                <?php
-                    require "../init.php";
-                    $partyList = $partyObj->getAllParty();
-                    
+                </div> 
+                <div　class="party-list">
+                    <?php
+                        
+                        //Party_name , Holder , Party_type
+                        //Party_time , Location , Limit_members_num , Curr_members_num
+                        //Description    
+                        foreach($allPartyObj as $partyBlock) {
+                            echo '
+                                <div class = "party-info">
+                                    <ol>
+                                        <li>'.$partyBlock->Party_name.'</li>
+                                        <li>'.$partyBlock->Holder.'</li>
+                                        <li>'.$partyBlock->Party_time.'</li>
+                                        <li>'.$partyBlock->Location.'</li>
+                                    </ol>
+                                </div>
+                                <div class = "party-intro">
+                                    '.$partyBlock->Description.'
+                                </div>
+                                <br>
+                            ';
+                        
+
+                        }
 
 
-                ?>
-                <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                <span class="w3-right w3-opacity">1 min</span>
-                <h4>John Doe</h4><br>
-                <hr class="w3-clear">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                  <div class="w3-row-padding" style="margin:0 -16px">
-                    <div class="w3-half">
-                      <img src="/w3images/lights.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
-                    </div>
-                    <div class="w3-half">
-                      <img src="/w3images/nature.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
-                  </div>
+                    ?>
                 </div>
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-              </div>
-              
-              <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-                <img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                <span class="w3-right w3-opacity">16 min</span>
-                <h4>Jane Doe</h4><br>
-                <hr class="w3-clear">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-              </div>  
 
-              <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-                <img src="/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                <span class="w3-right w3-opacity">32 min</span>
-                <h4>Angie Jane</h4><br>
-                <hr class="w3-clear">
-                <p>Have you seen this?</p>
-                <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-              </div> 
-              
-            <!-- End Middle Column -->
             </div>
-            
-            <!-- Right Column -->
-            <div class="w3-col m2">
-              <div class="w3-card w3-round w3-white w3-center">
-                <div class="w3-container">
-                  <p>Upcoming Events:</p>
-                  <img src="/w3images/forest.jpg" alt="Forest" style="width:100%;">
-                  <p><strong>Holiday</strong></p>
-                  <p>Friday 15:00</p>
-                  <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>
-                </div>
-              </div>
-              <br>
-              
-              <div class="w3-card w3-round w3-white w3-center">
-                <div class="w3-container">
-                  <p>Friend Request</p>
-                  <img src="/w3images/avatar6.png" alt="Avatar" style="width:50%"><br>
-                  <span>Jane Doe</span>
-                  <div class="w3-row w3-opacity">
-                    <div class="w3-half">
-                      <button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
-                    </div>
-                    <div class="w3-half">
-                      <button class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <br>
-              
-              <div class="w3-card w3-round w3-white w3-padding-16 w3-center">
-                <p>ADS</p>
-              </div>
-              <br>
-              
-              <div class="w3-card w3-round w3-white w3-padding-32 w3-center">
-                <p><i class="fa fa-bug w3-xxlarge"></i></p>
-              </div>
-              
-            <!-- End Right Column -->
-            </div>
-            
-          <!-- End Grid -->
-          </div>
-          
-        <!-- End Page Container -->
         </div>
-        <br>
-
-        <!-- Footer -->
-        <footer class="w3-container w3-theme-d3 w3-padding-16">
-          <h5>Footer</h5>
-        </footer>
-
-        <footer class="w3-container w3-theme-d5">
-          <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-        </footer>
-         
-        <script>
-        <script>
-        // Accordion
-        function myFunction(id) {
-          var x = document.getElementById(id);
-          if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-            x.previousElementSibling.className += " w3-theme-d1";
-          } else { 
-            x.className = x.className.replace("w3-show", "");
-            x.previousElementSibling.className = 
-            x.previousElementSibling.className.replace(" w3-theme-d1", "");
-          }
-        }
-
-        // Used to toggle the menu on smaller screens when clicking on the menu button
-        function openNav() {
-          var x = document.getElementById("navDemo");
-          if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-          } else { 
-            x.className = x.className.replace(" w3-show", "");
-          }
-        }
-        </script>
-        // Accordion
-        function myFunction(id) {
-          var x = document.getElementById(id);
-          if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-            x.previousElementSibling.className += " w3-theme-d1";
-          } else { 
-            x.className = x.className.replace("w3-show", "");
-            x.previousElementSibling.className = 
-            x.previousElementSibling.className.replace(" w3-theme-d1", "");
-          }
-        }
-
-        // Used to toggle the menu on smaller screens when clicking on the menu button
-        function openNav() {
-          var x = document.getElementById("navDemo");
-          if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-          } else { 
-            x.className = x.className.replace(" w3-show", "");
-          }
-        }
-        </script>
-
     </body>
-</html> 
-
+</html>

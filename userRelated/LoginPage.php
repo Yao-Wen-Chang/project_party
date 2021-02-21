@@ -1,5 +1,5 @@
 <?php
-    require "../init../init.php";
+    require "../init.php";
 
 
 
@@ -41,8 +41,28 @@
 
         </style>
         <script>
-            function Show) {
-                
+            function UserLoginForm(choice) {
+                if(choice === "signin") {
+
+                    <form action="LoginValidation.php">
+                        <label>Account: </label>
+                        <input type="text"><br>
+                        <label>Password: </label>
+                        <input type="text"><br>
+                        <input type="submit" value="Submit">
+                    </form>
+
+                }
+                else if(choice === "signup") {
+                    <form action="#">
+                        <label>Email: </label>
+                        <input type="text"><br>
+                        <label>Password: </label>
+                        <input type="text"><br>
+
+                        <input type="submit" value="Submit">
+                    </form>
+                }
             }
         </script>
     </head>
@@ -50,16 +70,16 @@
         <div class="login-block">
             <div class="sign-in-up">
                 <div class="sign-in">
-                    <button onclick=>Sign In</button>
+                    <button value="signin" onclick="UserLoginForm(this.value)">Sign In</button>
                 </div>
                 
             </div>
             <div class="info-input-cols">
-                <form action="LoginValidation.php">
+                <form action="LoginValidation.php" method="post">
                     <label>Account: </label>
-                    <input type="text"><br>
+                    <input type="text" name="email"><br>
                     <label>Password: </label>
-                    <input type="text"><br>
+                    <input type="text" name="password"><br>
                     <input type="submit" value="Submit">
                 </form>
             </div>
