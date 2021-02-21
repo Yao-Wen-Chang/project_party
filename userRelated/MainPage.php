@@ -300,7 +300,7 @@
                         <input type="text" placeholder="Enter location" name="loc" required>
 
                         <label for="limit-mem"><b>Limit Member</b></label>
-                        <input type="text" placeholder="Enter utmost member number" name="limitMem" required>
+                        <input type="number" placeholder="Enter utmost member number" name="limitMem" required>
 
                         <label for="description"><b>Description</b></label>
                         <input type="text" placeholder="Descript the party" name="description" required>

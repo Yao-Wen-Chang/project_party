@@ -57,7 +57,7 @@ class User {
         if(!empty($this->email) && !empty($this->password) && !empty($this->username) && !empty($_gender) && !empty($_birth)) {
             try {
 		        if (filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-		            $query = "SELECT email FROM users WHERE email = ?";
+		            $query = "SELECT email FROM Users WHERE Email = ?";
 		            $preparation = $this->db->prepare($query);
 		            $preparation->execute([$this->email]);
 		            if($preparation->rowCount() === 1) {

@@ -41,43 +41,50 @@
 
         </style>
         <script>
-            function UserLoginForm(choice) {
-                if(choice === "signin") {
-
-                    <form action="LoginValidation.php">
-                        <label>Account: </label>
-                        <input type="text"><br>
-                        <label>Password: </label>
-                        <input type="text"><br>
-                        <input type="submit" value="Submit">
-                    </form>
-
-                }
-                else if(choice === "signup") {
-                    <form action="#">
-                        <label>Email: </label>
-                        <input type="text"><br>
-                        <label>Password: </label>
-                        <input type="text"><br>
-
-                        <input type="submit" value="Submit">
-                    </form>
-                }
+            function UserLoginForm(evt, signForm) { 
+                btnContent = document.getElementByClassName("btnContent");
+                for(i = 0; i < btnContent.length; i++) 
+                    btnContent[i].style.display = "none";
+                btnLink = document.getElementByClassName("btnLink");    
+                for(i = 0; i < btnLink.length; i++) 
+                    btnLink[i].style.display = "none";
+                document.getElementById(signForm).style.display = "block";
             }
         </script>
     </head>
     <body>
-        <div class="login-block">
-            <div class="sign-in-up">
-                <div class="sign-in">
-                    <button value="signin" onclick="UserLoginForm(this.value)">Sign In</button>
-                </div>
-                
+        <div class="centralBlock">
+            <div class="btn">
+                <button class="btnLink" onclick="UserLoginForm(event, 'signIn')">Sign In</button>
+                <button class="btnLink" onclick="UserLoginForm(event, 'signUp')">Sign Up</button>
             </div>
-            <div class="info-input-cols">
+            <div id="signIn" class="btnContent">
                 <form action="LoginValidation.php" method="post">
                     <label>Account: </label>
                     <input type="text" name="email"><br>
+                    <label>Password: </label>
+                    <input type="text" name="password"><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div id="signUp" class="btnContent">
+                <form action="#" method="post">
+                    <label>Email: </label>
+                    <input type="text" name="email"><br>
+
+                    <label>Password: </label>
+                    <input type="text" name="password"><br>
+
+                    <label>Username: </label>
+                    <input type="text" name="username"><br>
+
+                    <label>Gender: </label>
+                    <input type="radio" name="gender" value="male"> Male
+                    <input type="radio" name="gender" value="female"> Female<br>
+                    
+                    <label>Birth: </label>
+                    <input type="date" id="birth" name="birth"><br>        
+
                     <label>Password: </label>
                     <input type="text" name="password"><br>
                     <input type="submit" value="Submit">
