@@ -50,14 +50,14 @@ class User {
         }
     }
 
-    function Signup ($_username, $_email, $_password, $_gender, $_birth, $_photo) {
+    function Signup ($_username, $_email, $_password, $_gender, $_birth) {
         $this->email = trim($_email);
         $this->password = trim($_password);
         $this->username = trim($_username);
         if(!empty($this->email) && !empty($this->password) && !empty($this->username) && !empty($_gender) && !empty($_birth)) {
             try {
 		        if (filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-		            $query = "SELECT email FROM Users WHERE Email = ?";
+		            $query = "SELECT Email FROM Users WHERE Email = ?";
 		            $preparation = $this->db->prepare($query);
 		            $preparation->execute([$this->email]);
 		            if($preparation->rowCount() === 1) {
@@ -65,14 +65,13 @@ class User {
 		            }
 		            else {
 						$hash_password = password_hash($this->password, PASSWORD_DEFAULT);
-		                $query = "INSERT INTO users (username, password, email, gender, birth, photo) VALUES (:username, :password, :email, :gender, :birth, :photo)";
+		                $query = "INSERT INTO Users (Username, Password, Email, Gender, Birth) VALUES (:username, :password, :email, :gender, :birth)";
 		                $preparation = $this->db->prepare($query);
 		                $preparation->bindValue(":username", $this->username);
 		                $preparation->bindValue(":password", $hash_password);
 		                $preparation->bindValue(":email", $this->email);
 		                $preparation->bindValue(":gender", $_gender);
 		                $preparation->bindValue(":birth", $_birth);
-		                $preparation->bindValue(":photo", $_photo);
 		                $preparation->execute();
 		                return TRUE;	                
 		            }            

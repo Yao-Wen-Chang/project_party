@@ -20,36 +20,55 @@
                 background-size: cover;
 
             }
-            .login-block {
+            .centralBlock {
                 text-align: center;    
                 box-sizing: inherit;
-                width: 25%;
+                width: 40%;
+                float: left;
             }
-            .sign-in-up {
-
-
+            .btn {
+                overflow: hidden;
+                border: 1px solid #ccc;
+                background-color: #f1f1f1;
             }
-            .sign-in {
-
+            .btn button {
+                background-color: inherit;
+                float: inherit;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
             }
-            .sign-up {
-
+            .btn button:hover {
+                background-color: #ddd;
             }
-            .info-input-cols {
-
+            .btn button.active {
+                background-color: #ccc;
             }
-
+            .btnContent {
+                float: inherit;
+                display: none;
+                margin: 20px 30px;
+                
+                box-sizing: border-box; 
+            }
         </style>
         <script>
             function UserLoginForm(evt, signForm) { 
-                btnContent = document.getElementByClassName("btnContent");
+
+                var i, btnLink, btnContent;
+                btnContent = document.getElementsByClassName("btnContent");
                 for(i = 0; i < btnContent.length; i++) 
                     btnContent[i].style.display = "none";
-                btnLink = document.getElementByClassName("btnLink");    
+                btnLink = document.getElementsByClassName("btnLink");    
                 for(i = 0; i < btnLink.length; i++) 
-                    btnLink[i].style.display = "none";
+                    btnLink[i].className = btnLink[i].className.replace(" active", "");
                 document.getElementById(signForm).style.display = "block";
+                evt.currentTarget.className += " active";
             }
+                
         </script>
     </head>
     <body>
@@ -68,15 +87,16 @@
                 </form>
             </div>
             <div id="signUp" class="btnContent">
-                <form action="#" method="post">
+                <form action="SignUp.php" method="post">
+
+                    <label>Username: </label>
+                    <input type="text" name="username"><br>
+
                     <label>Email: </label>
                     <input type="text" name="email"><br>
 
                     <label>Password: </label>
                     <input type="text" name="password"><br>
-
-                    <label>Username: </label>
-                    <input type="text" name="username"><br>
 
                     <label>Gender: </label>
                     <input type="radio" name="gender" value="male"> Male
@@ -85,12 +105,11 @@
                     <label>Birth: </label>
                     <input type="date" id="birth" name="birth"><br>        
 
-                    <label>Password: </label>
-                    <input type="text" name="password"><br>
                     <input type="submit" value="Submit">
                 </form>
             </div>
         </div>
+
     </body>
 
 </html>
