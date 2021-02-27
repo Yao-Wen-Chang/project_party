@@ -1,6 +1,6 @@
 <?php
     require "../init.php"; 
-    $signup = $userObj->Signup($_POST["username"], $_POST["email"], $_POST["password"], $_POST["gender"], $_POST["birth"]);
+    $signup = $userObj->Signup($_POST["username"], $_POST["email"], $_POST["password"], $_POST["gender"], $_POST["birth"], $_POST["city"], $_POST["job"]);
     if(!$signup) {
 	    echo '
             <script type = "text/javascript">

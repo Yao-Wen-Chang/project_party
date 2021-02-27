@@ -6,15 +6,16 @@
             $this->db = $dn_connection;
         }
         
-        function createNewParty($name, $type, $loc, $memberLimit, $description) {
+        function createNewParty($name, $type, $loc, $time, $memberLimit, $description) {
             try {
                 
-                $query = "INSERT INTO Parties (Party_name , Holder, Party_type, Location, Limit_members_num, Description) VALUES (:Party_name , :Holder, :Party_type, :Location, :Limit_members_num,:Description)";
+                $query = "INSERT INTO Parties (Party_name , Holder, Party_type, Location, Party_time, Limit_members_num, Description) VALUES (:Party_name , :Holder, :Party_type, :Location, :Party_time, :Limit_members_num, :Description)";
                 $preparation = $this->db->prepare($query);
                 $preparation->bindValue(":Party_name", $name);
                 $preparation->bindValue(":Holder", "WEN");
                 $preparation->bindValue(":Party_type", $type);
                 $preparation->bindValue(":Location", $loc);
+                $preparation->bindValue(":Party_time", $time);
                 $preparation->bindValue(":Limit_members_num", $memberLimit);
                 $preparation->bindValue(":Description", $description);
                 $result = $preparation->execute();
@@ -68,7 +69,14 @@
                 echo "Error: " . $exception->getMessage();
             }
         }
-        
+        function getMyHoldParty () {
+
+
+        } 
+        function getJoinParty () {
+
+
+        }
         function getAllPartyRequest() {
         
         

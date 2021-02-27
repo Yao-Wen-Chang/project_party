@@ -1,6 +1,4 @@
 <?php
-    session_start();
-    session_regenerate_id(true);
     require "userRelated/User.php";
     require "userRelated/Friendship.php";
     require "partyRelated/Party.php";

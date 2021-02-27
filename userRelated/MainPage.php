@@ -1,10 +1,11 @@
 <?php
-
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
     require "../init.php";
+
+    session_start();
     $allPartyObj = $partyObj->getAllParty()
 ?>
 <!DOCTYPE html>
@@ -299,6 +300,9 @@
                         <label for="loc"><b>Location</b></label>
                         <input type="text" placeholder="Enter location" name="loc" required>
 
+                        <label for="party-time"><b>Party Time</b></label>
+                        <input type="date" placeholder="choose party hold time" name="partyTime" required>
+
                         <label for="limit-mem"><b>Limit Member</b></label>
                         <input type="number" placeholder="Enter utmost member number" name="limitMem" required>
 
@@ -322,15 +326,21 @@
                     <hr>
                     <p>
                         <i class="fa fa-pencil pen-icon"></i>
-                        <!--put occuation var here-->
+                        <?php
+                            echo $_SESSION["job"];
+                        ?>
                     </p>
                     <p>
                         <i class="fa fa-home hone-icon"></i>
-                        <!--put location var here-->
+                        <?php
+                            echo $_SESSION["city"];
+                        ?>
                     </p>
                     <p>
                         <i class="fa fa-birthday-cake cake-icon"></i>
-                        <!--put birth var here-->
+                        <?php
+                            echo $_SESSION["birth"];
+                        ?>
                     </p>
                 </div>
                 <br>

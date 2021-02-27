@@ -105,6 +105,11 @@
                     <label>Birth: </label>
                     <input type="date" id="birth" name="birth"><br>        
 
+                    <label>City: </label>
+                    <input type="text" id="city" name="city"><br>        
+
+                    <label>Job: </label>
+                    <input type="text" id="job" name="job"><br>        
                     <input type="submit" value="Submit">
                 </form>
             </div>
