@@ -25,6 +25,7 @@
                         //$db_row['Password'] = password_hash($db_row['Password'], PASSWORD_DEFAULT);
                         $password_match = password_verify($this->password, $db_row['Password']);
                         if($password_match) {
+                            $_SESSION["ID"] = $db_row["ID"];
                             $_SESSION["username"] = $db_row["Username"];
                             $_SESSION["email"] = $db_row["Email"];
                             $_SESSION["password"] = $db_row["Password"];

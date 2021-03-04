@@ -1,4 +1,5 @@
 <?php
+    session_start();
     class Party {
         private $db;
         
@@ -69,6 +70,19 @@
                 echo "Error: " . $exception->getMessage();
             }
         }
+        function getLimitCurrMember($partyID) {
+            try {
+                $query = "SELECT Limit_members_num, Curr_members_num FROM Parties WHERE ID = $partyID LIMIT 1";
+                $preparation = $this->db->prepare($query);
+                $preparation->execute();
+                $data = $preparation->fetch(PDO::FETCH_OBJ);
+                return $data;
+                
+            }
+            catch(PDOException $exception) {
+                echo "Error: " . $exception->getMessage();
+            }
+        }
         function getMyHoldParty () {
 
 
@@ -81,9 +95,52 @@
         
         
         }
-        
-        function sendPartyRequest() {
+        function checkMemberNum($partyID) {
+            $data = $this->getLimitCurrMember($partyID); 
+            if($data->Curr_members_num < $data->Limit_members_num) {
+                return TRUE;
+            }
+            else 
+                return FALSE;
+        }
+
+        function joinParty($partyID) {
+            try {
+                
+                $data = $this->getLimitCurrMember($partyID); 
+                if($data->Curr_members_num < $data->Limit_members_num) {
+                    $update = $data->Curr_members_num + 1;
+                    $query = "UPDATE Parties SET Curr_members_num = $update WHERE ID = $partyID";
+                   
+                    $preparation = $this->db->prepare($query);
+                    $result = $preparation->execute();
+                    if($result) {
+                        $query = "INSERT INTO Parties_Users (userID, partyID) VALUES (:userID, :partyID)";
+                        $preparation = $this->db->prepare($query);
+                        $preparation->bindValue(":userID", $_SESSION["ID"]);
+                        $preparation->bindValue(":partyID", $partyID);
+                        $result = $preparation->execute();
+                        return TRUE;
+                    }
+                    else 
+                        
+                        return TRUE;
+                }
+                else 
+                    return FALSE;
+                
+
+
             
+            
+            }
+            catch(PDOException $exception) {
+                echo "Error: " . $exception->getMessage();
+            }
+
+        } 
+        function sendPartyRequest($partyID) {
+                        
         }
         
         function rejectPartyRequest() {

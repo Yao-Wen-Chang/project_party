@@ -390,6 +390,9 @@
                                 <div class = "party-intro">
                                     '.$partyBlock->Description.'
                                 </div>
+                                <div class="join-party">
+                                    <button id="btn-join-party"><b>Join The Party</b></button>
+                                </div>
                                 <br>
                             ';
                         
@@ -398,6 +401,22 @@
 
 
                     ?>
+                    <script>
+                        function joinParty() {
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    if(this.responseText)
+                                        document.getElementsById("btn-join-party").disabled = true;
+                                    else 
+                                        document.getElementsById("btn-join-party").disabled = false;
+                                }
+                            };
+                            xmlhttp.open("GET", "../partyRelated/JoinParty.php?q=" + str, true); xmlhttp.send();
+                            
+
+                        }
+                    </script>
                 </div>
 
             </div>
