@@ -1,5 +1,6 @@
 <?php
-    session_start();
+
+
     class Party {
         private $db;
         
@@ -47,9 +48,6 @@
                 }
                 else 
                     return false;
-            
-            
-            
             }
             catch(PDOException $exception) {
                 echo "Error: " . $exception->getMessage();
@@ -115,19 +113,19 @@
                     $preparation = $this->db->prepare($query);
                     $result = $preparation->execute();
                     if($result) {
-                        $query = "INSERT INTO Parties_Users (userID, partyID) VALUES (:userID, :partyID)";
+                        $query = "INSERT INTO Partie_User (UserID, PartyID) VALUES (:UserID, :PartyID)";
                         $preparation = $this->db->prepare($query);
-                        $preparation->bindValue(":userID", $_SESSION["ID"]);
-                        $preparation->bindValue(":partyID", $partyID);
+                        $preparation->bindValue(":UserID", $_SESSION["ID"]);
+                        $preparation->bindValue(":PartyID", $partyID);
                         $result = $preparation->execute();
-                        return TRUE;
+                        return true;
                     }
                     else 
                         
-                        return TRUE;
+                        return true;
                 }
                 else 
-                    return FALSE;
+                    return false;
                 
 
 
@@ -139,6 +137,21 @@
             }
 
         } 
+        function getMemberList($partyID) {
+            try {
+                $query = "SELECT Username, Gender, Birth, Job, City, Avatar FROM Users LEFT JOIN Party_User ON ID = UserID LEFT JOIN Parties ON PartyID = UserID AND PartyID = ?";
+                
+                $preparation = $this->db->prepare($query);
+
+                $result = $preparation->execute([$partyID]);
+                return true;
+            }
+            catch(PDOException $exception) {
+                echo "Error: " . $exception->getMessage();
+            }
+            
+
+        }
         function sendPartyRequest($partyID) {
                         
         }

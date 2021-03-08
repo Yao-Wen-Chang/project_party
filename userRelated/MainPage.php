@@ -217,7 +217,7 @@
             }
             .mid-col {
                 width: 60%;
-                padding: 0 8px;
+                padding: 0px 16px;
                 box-sizing: inherit;
                 float: left;
             }
@@ -226,49 +226,42 @@
                 box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
                 border-radius: 4px;
                 box-sizing: inherit;
-            }
-            .search-bar {
-                padding: 8px 16px;
-                box-sizing: inherit;
                 border: 1px solid;
             }
-            .search-icon {
-                border: none;
+
+            .search-bar {
+                text-align: center;
+                padding: 8px 16px;
+                box-sizing: inherit;
+
+            }
+            .search-input {
+                box-sizing: inherit;
+                width: 70%;
+
+            }
+            .search-btn {
                 display: inline-block;
                 padding: 8px 16px;
-                vertical-align: middle;
-                overflow: hidden;
-                text-decoration: none;
-                color: inherit;
+                margin: 0px;
                 background-color: inherit;
-                text-align: center;
-                cursor: pointer;
-                white-space: nowrap;
 
             }
 
             .party-list {
-                float: left;
-                border: none;
-                display: inline-block;
-                vertical-align: middle;
-                overflow: hidden;
-                text-decoration: none;
-                color: inherit;
-                background-color: inherit;
                 text-align: center;
-                cursor: pointer;
-                white-space: nowrap;
+                box-sizing: inherit; 
+                padding: 0px 0px;
+               
             }
             .party-info {
                 box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
                 color: #000;
                 background-color: #fff;
-                border-radius: 4px;
+                border-radius: 20px;
                 box-sizing: inherit;
-                padding: 0.01em 16px;
-
-            }
+                padding: 8px 16px;
+                margin: 10px 0px;
             .party-intro {
 
                 box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
@@ -277,6 +270,17 @@
                 border-radius: 4px;
                 box-sizing: inherit;
                 padding: 0.01em 16px;
+
+            }
+                margin: 10px 0px;
+
+            }
+            .join-party {
+
+
+            }
+            .btn-join-party {
+
 
             }
         </style>
@@ -367,8 +371,8 @@
             <div class="mid-col">
                 <div class="search-bar-container">
                     <div class="search-bar">
-                        <input placeholder="Search...">
-                        <button type="submit"><i class="fa fa-search search-icon"></i></button>
+                        <input class="search-input" placeholder="Search...">
+                        <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
                     </div>
                 </div> 
                 <div　class="party-list">
@@ -379,44 +383,32 @@
                         //Description    
                         foreach($allPartyObj as $partyBlock) {
                             echo '
-                                <div class = "party-info">
+                                <div class="party-info">
                                     <ol>
                                         <li>'.$partyBlock->Party_name.'</li>
                                         <li>'.$partyBlock->Holder.'</li>
                                         <li>'.$partyBlock->Party_time.'</li>
                                         <li>'.$partyBlock->Location.'</li>
                                     </ol>
-                                </div>
-                                <div class = "party-intro">
-                                    '.$partyBlock->Description.'
-                                </div>
-                                <div class="join-party">
-                                    <button id="btn-join-party"><b>Join The Party</b></button>
-                                </div>
-                                <br>
+
                             ';
-                        
+                            if($partyObj->checkMemberNum($partyBlock->ID)) {  // check whether meet limit number , and display button
+                                echo '
+                                    <div class="join-party">
+                                        <button id="btn-join-party"><b>Join The Party</b></button>
+                                    </div>
+                                ';
+
+                            }
+                            echo '    
+                                </div>
+                            ';
+
 
                         }
 
 
                     ?>
-                    <script>
-                        function joinParty() {
-                            var xmlhttp = new XMLHttpRequest();
-                            xmlhttp.onreadystatechange = function() {
-                                if (this.readyState == 4 && this.status == 200) {
-                                    if(this.responseText)
-                                        document.getElementsById("btn-join-party").disabled = true;
-                                    else 
-                                        document.getElementsById("btn-join-party").disabled = false;
-                                }
-                            };
-                            xmlhttp.open("GET", "../partyRelated/JoinParty.php?q=" + str, true); xmlhttp.send();
-                            
-
-                        }
-                    </script>
                 </div>
 
             </div>

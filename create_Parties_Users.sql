@@ -1,11 +1,11 @@
 USE OnlineDating
-CREATE TABLE Membership (
+CREATE TABLE Party_User (
     UserID int,
     PartyID int, 
     PRIMARY KEY (PartyID, UserID),
 
-    CONSTRAINT memberUser FOREIGN KEY (UserID) REFERENCES Users (ID),
-    CONSTRAINT memberParty FOREIGN KEY (PartyID) REFERENCES Parties (ID)
+    FOREIGN KEY (UserID) REFERENCES Users (ID),
+    FOREIGN KEY (PartyID) REFERENCES Parties (ID)
 
 
 
