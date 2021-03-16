@@ -108,12 +108,12 @@
                 $data = $this->getLimitCurrMember($partyID); 
                 if($data->Curr_members_num < $data->Limit_members_num) {
                     $update = $data->Curr_members_num + 1;
-                    $query = "UPDATE Parties SET Curr_members_num = $update WHERE ID = $partyID";
+                    $query = "UPDATE Parties SET Curr_members_num = ? WHERE ID = ?";
                    
                     $preparation = $this->db->prepare($query);
-                    $result = $preparation->execute();
+                    $result = $preparation->execute([$update, $partyID]);
                     if($result) {
-                        $query = "INSERT INTO Partie_User (UserID, PartyID) VALUES (:UserID, :PartyID)";
+                        $query = "INSERT INTO Party_User (UserID, PartyID) VALUES (:UserID, :PartyID)";
                         $preparation = $this->db->prepare($query);
                         $preparation->bindValue(":UserID", $_SESSION["ID"]);
                         $preparation->bindValue(":PartyID", $partyID);
@@ -122,7 +122,7 @@
                     }
                     else 
                         
-                        return true;
+                        return false;
                 }
                 else 
                     return false;

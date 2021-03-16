@@ -22,6 +22,7 @@
                     modal.style.display = "none";
                 }
             }
+            
         </script>
         <style>
             html {
@@ -272,11 +273,7 @@
                 padding: 0.01em 16px;
 
             }
-                margin: 10px 0px;
-
-            }
             .join-party {
-
 
             }
             .btn-join-party {
@@ -395,7 +392,7 @@
                             if($partyObj->checkMemberNum($partyBlock->ID)) {  // check whether meet limit number , and display button
                                 echo '
                                     <div class="join-party">
-                                        <button id="btn-join-party"><b>Join The Party</b></button>
+                                        <button id="btn-join-party" onclick="JoinParty('.$partyBlock->ID.')"><b>Join The Party</b></button> 
                                     </div>
                                 ';
 
@@ -409,6 +406,21 @@
 
 
                     ?>
+                    <script>
+                        
+
+                        function JoinParty(partyID) {
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    //document.getElementsByClassName("join-party")[0].visibility = "hidden"
+                                    alert("success");
+                                }    
+                            };
+                            xhttp.open("GET", "../partyRelated/JoinParty.php?q=" + partyID, true);
+                            xhttp.send();
+                        }
+                    </script>
                 </div>
 
             </div>
