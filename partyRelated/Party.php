@@ -152,6 +152,33 @@
             
 
         }
+        function GetPartyInfo($partyID) {
+            try {
+                $query = "SELECT Users.Username, Users.Avatar, Users.Birth, Users.Gender, Users.Job, Users.City, Parties.Description 
+                FROM Parties INNER JOIN Party_User ON Parties.ID = Party_User.PartyID 
+                INNER JOIN Users ON Party_User.UserID = Users.ID   
+                WHERE Parties.ID = ?
+                ";
+
+                //$query = "SELECT Users.Username From Parties INNER JOIN Party_User ON Parties.ID = Party_User.PartyID INNER JOIN Users ON Party_User.UserID = Users.ID WHERE Parties.ID = ?";
+                $preparation = $this->db->prepare($query);
+
+                $preparation->execute([$partyID]);
+
+                //$preparation->execute();
+                $data = $preparation->fetchAll(PDO::FETCH_OBJ);
+                if($preparation->rowCount()>0)
+                    return $data;
+                else
+                    return false;
+
+
+            } 
+            catch(PDOException $exception) {
+                echo "Error: " . $exception->getMessage();
+            }
+
+        }
         function sendPartyRequest($partyID) {
                         
         }

@@ -380,13 +380,14 @@
                         //Description    
                         foreach($allPartyObj as $partyBlock) {
                             echo '
-                                <div class="party-info">
-                                    <ol>
-                                        <li>'.$partyBlock->Party_name.'</li>
-                                        <li>'.$partyBlock->Holder.'</li>
-                                        <li>'.$partyBlock->Party_time.'</li>
-                                        <li>'.$partyBlock->Location.'</li>
-                                    </ol>
+                                <a href="../partyRelated/PartyPage.php">
+                                    <div class="party-info">
+                                        <ol>
+                                            <li>'.$partyBlock->Party_name.'</li>
+                                            <li>'.$partyBlock->Holder.'</li>
+                                            <li>'.$partyBlock->Party_time.'</li>
+                                            <li>'.$partyBlock->Location.'</li>
+                                        </ol>
 
                             ';
                             if($partyObj->checkMemberNum($partyBlock->ID)) {  // check whether meet limit number , and display button
@@ -398,7 +399,8 @@
 
                             }
                             echo '    
-                                </div>
+                                    </div>
+                                </a>
                             ';
 
 
