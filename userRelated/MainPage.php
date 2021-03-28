@@ -94,6 +94,19 @@
                 background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
                 padding-top: 60px;
             }
+
+            .close {
+                position: absolute;
+                font-size: 35px;
+                font-weight: bold;
+                right: 25px;
+                color: black;        
+        
+            }
+            .close:hover, .close:focus {
+                color: red;
+                cursor: pointer;
+            }
             .container {
                 padding: 16px;
             }
@@ -287,35 +300,36 @@
             <a class="nav-bar"><i class="fa fa-bars"> </i></a>
             <a class="user-search"><i class="fa fa-search"> </i></a>
             <a class="notification" href="#"><i class="fa fa-bell-o"></i></a>
-            <button class="party-create-btn" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-plus-square-o"></i></button>
-            <div id="id01" class="party-create-block">
+            <button class="party-create-btn" onclick="document.getElementById('popup-window').style.display='block'"><i class="fa fa-plus-square-o"></i></button>
+            <div id="popup-window" class="party-create-block">
 
                 <form class="party-info animate" action="../partyRelated/CreateParty.php" method="post">
                     <div class="container">
+                        <span class="close" onclick="document.getElementById('popup-window').style.display = 'none'">X</span>
                         <label for="party-name"><b>Party Name</b></label>
-                        <input type="text" placeholder="Enter party name" name="partyName" required>
+                        <input type="text" placeholder="Enter party name" name="partyName" required><br>
 
                         <label for="party-type"><b>Party Type</b></label>
-                        <input type="text" placeholder="Enter party type" name="partyType" required>
+                        <input type="text" placeholder="Enter party type" name="partyType" required><br>
 
                         <label for="loc"><b>Location</b></label>
-                        <input type="text" placeholder="Enter location" name="loc" required>
+                        <input type="text" placeholder="Enter location" name="loc" required><br>
 
                         <label for="party-time"><b>Party Time</b></label>
-                        <input type="date" placeholder="choose party hold time" name="partyTime" required>
+                        <input type="date" placeholder="choose party hold time" name="partyTime" required><br>
 
                         <label for="limit-mem"><b>Limit Member</b></label>
-                        <input type="number" placeholder="Enter utmost member number" name="limitMem" required>
+                        <input type="number" placeholder="Enter utmost member number" name="limitMem" required><br>
 
                         <label for="description"><b>Description</b></label>
-                        <input type="text" placeholder="Descript the party" name="description" required>
+                        <input type="text" placeholder="Descript the party" name="description" required><br>
 
                         <button type="submit">Create</button>
                     </div>
 
                 </form>
             </div>
-            <a class="log-out" href="#"><i class="fa fa-power-off"></i></a>
+            <a class="log-out" href="./LoginPage.php"><i class="fa fa-power-off"></i></a>
         </div>
         <div class="page-container">
             <div class="left-col">
@@ -380,7 +394,7 @@
                         //Description    
                         foreach($allPartyObj as $partyBlock) {
                             echo '
-                                <a href="../partyRelated/PartyPage.php">
+                                <a href="../partyRelated/PartyPage.php?q='.$partyBlock->ID.'">
                                     <div class="party-info">
                                         <ol>
                                             <li>'.$partyBlock->Party_name.'</li>

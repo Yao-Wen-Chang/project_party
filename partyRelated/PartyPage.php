@@ -1,6 +1,8 @@
 <?php
     require "../init.php";
-    $data = $partyObj->GetPartyInfo(2);
+    if(isset($_GET["q"])) 
+        $partyID = $_GET["q"];
+    $data = $partyObj->GetPartyInfo($partyID);
  
 ?>
 <!DOCTYPE html>
@@ -59,6 +61,15 @@
                 padding: 12px 24px;
 
             }
+            input[type=text], input[type=date], input[type=number] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+
             .party-create-block {
                 display: none; /* Hidden by default */
                 position: fixed; /* Stay in place */
@@ -72,12 +83,34 @@
                 background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
                 padding-top: 60px;
             }
-            .container {
+            .party-info {
+                background-color: #fefefe;
+                margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+                border: 1px solid #888;
+                width: 20%;
+
+            }
+            .flag-container {
+                text-align: center;
+                margin: 24px 0 12px 0;
+                position: relative;
+                
+            }
+            .party-info-container {
+
                 padding: 16px;
             }
             .close {
-
-
+                position: absolute;
+                font-size: 35px;
+                font-weight: bold;
+                right: 25px;
+                color: black;        
+        
+            }
+            .close:hover, .close:focus {
+                color: red;
+                cursor: pointer;
             }
             .party-info {
                 background-color: #fefefe;
@@ -116,7 +149,7 @@
 
             }
             .members-block {
-                border: solid;
+                border-style: solid;
                 border: 10px;
                 margin: 10px;
                 padding: 20px;
@@ -124,6 +157,9 @@
 
             }
             .per-member-info {
+                
+                border: 5px solid black;
+                border-radius: 8px;
                 margin: 10px;
                 font-size: inherit;
 
@@ -140,8 +176,11 @@
             <div id="popup-window" class="party-create-block">
 
                 <form class="party-info animate" action="../partyRelated/CreateParty.php" method="post">
-                    <div class="container">
-                        <span class="close" onclick="document.getElementById('popup-window').style.display = 'none'">X</span>
+                    <div class="flag-container">
+                        <span class="close" onclick="document.getElementById('popup-window').style.display = 'none'">x</span>
+                    </div>
+                    <div class="party-info-container">
+
                         <label for="party-name"><b>Party Name</b></label>
                         <input type="text" placeholder="Enter party name" name="partyName" required><br>
 
@@ -165,7 +204,7 @@
 
                 </form>
             </div>
-            <a class="log-out" href="#"><i class="fa fa-power-off"></i></a>
+            <a class="log-out" href="../userRelated/LoginPage.php"><i class="fa fa-power-off"></i></a>
         </div>
         <div class="party-block">
             <div class="description-block">
@@ -177,7 +216,7 @@
                 
                 <?php
 
-
+                    $itemCount = 0;
                     foreach($data as $d) {
                         echo '
                             <div class="per-member-info">
@@ -202,7 +241,11 @@
                             </div>
                 
                         ';
-
+                        $itemCount ++;
+                        if($itemCount == 4) {
+                            $itemCount = 0;
+                            echo '<br>';
+                        }
 
                     }
                 ?>
