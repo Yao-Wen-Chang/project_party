@@ -219,27 +219,28 @@
                     $itemCount = 0;
                     foreach($data as $d) {
                         echo '
-                            <div class="per-member-info">
-                                <div class="avatar">
-                                </div>
-                                <div class="username">
-                                    '.$d->Username.'
-                                </div>
-                                <div class="city">
-                                    CITY: '.$d->City.'
-                                </div>
-                                <div class="age">
-                                    AGE: '.$d->Age.'
-                                </div>
-                                <div class="gender">
-                                    GENDER: '.$d->Gender.'
-                                </div>
-                                <div class="job">
-                                    JOB: '.$d->Job.'
-                                </div>
+                            <a href="../userRelated/OthersPersonalPage.php?search='.$d->ID.'"> 
+                                <div class="per-member-info">
+                                    <div class="avatar">
+                                    </div>
+                                    <div class="username">
+                                        '.$d->Username.'
+                                    </div>
+                                    <div class="city">
+                                        CITY: '.$d->City.'
+                                    </div>
+                                    <div class="age">
+                                        AGE: '.$d->Age.'
+                                    </div>
+                                    <div class="gender">
+                                        GENDER: '.$d->Gender.'
+                                    </div>
+                                    <div class="job">
+                                        JOB: '.$d->Job.'
+                                    </div>
 
-                            </div>
-                
+                                </div>
+                            </a>
                         ';
                         $itemCount ++;
                         if($itemCount == 4) {

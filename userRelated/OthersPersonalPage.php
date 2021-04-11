@@ -1,12 +1,8 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-
     require "../init.php";
-
     session_start();
-    $allPartyObj = $partyObj->getAllParty()
+    $personalID = $_GET["search"];
+    $personalPosts = $postObj->GetUserPosts($personalID);
 ?>
 <!DOCTYPE html>
 <html>
@@ -235,19 +231,6 @@
                 box-sizing: inherit;
                 float: left;
             }
-            .party-personal-page-block {
-                border: 2px solid black;
-            }
-            .party-page {
-                width: 20px;
-                height: 10px;
-
-            }
-            .personal-page {
-                width: 20px;
-                height: 10px;
-
-            }
             .search-bar-container {
                 background-color: #fff;
                 box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
@@ -275,13 +258,13 @@
 
             }
 
-            .party-list {
+            .post-list {
                 text-align: center;
                 box-sizing: inherit; 
                 padding: 0px 0px;
                
             }
-            .party-info {
+            .post-block {
                 box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
                 color: #000;
                 background-color: #fff;
@@ -289,21 +272,16 @@
                 box-sizing: inherit;
                 padding: 8px 16px;
                 margin: 10px 0px;
-            .party-intro {
-
-                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-                color: #000;
-                background-color: #fff;
-                border-radius: 4px;
-                box-sizing: inherit;
-                padding: 0.01em 16px;
+            .title-block {
+                text-align: center;
+                margin: 8px 16px;     
+            }
+            .content-block {
+                text-align: left;
+                margin: 8px 4px;
 
             }
-            .join-party {
-
-            }
-            .btn-join-party {
-
+            .like-comment-block {
 
             }
         </style>
@@ -392,94 +370,40 @@
                     <h4 class="title-recommender">Interesting Events</h4>
                 </div>
             </div>
-            <script>
-                
-                function PartyPostTransit(evt, signForm) { 
-
-                    var i, btnLink, btnContent;
-                    btnContent = document.getElementsByClassName("btnContent");
-                    for(i = 0; i < btnContent.length; i++) 
-                        btnContent[i].style.display = "none";
-                    btnLink = document.getElementsByClassName("btnLink");    
-                    for(i = 0; i < btnLink.length; i++) 
-                        btnLink[i].className = btnLink[i].className.replace(" active", "");
-                    document.getElementById(signForm).style.display = "block";
-                    evt.currentTarget.className += " active";
-                }
-            </script>
             <div class="mid-col">
-                <div class="btn">
-                    <button class="btnLink" onclick="PartyPostTransit(event, 'Party')">Party List</button>
-                    <button class="btnLink" onclick="PartyPostTransit(event, 'Post')">Post List</button>
-                </div>
-                <div id="Post" class="btnContent">
-                    <form action=""
-                </div>
-                <div id="Party" class="btnContent">
-                    <div class="party-personal-page-block">
-                        <button class="party-btn"> Party </button>
-
-                        <button class="personal-page-btn"> Personal Page </button>
+                <div class="search-bar-container">
+                    <div class="search-bar">
+                        <input class="search-input" placeholder="Search...">
+                        <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
                     </div>
-                    <div class="search-bar-container">
-                        <div class="search-bar">
-                            <input class="search-input" placeholder="Search...">
-                            <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-                        </div>
-                    </div> 
-                    <div　class="party-list">
-                        <?php
-                            
-                            //Party_name , Holder , Party_type
-                            //Party_time , Location , Limit_members_num , Curr_members_num
-                            //Description    
-                            foreach($allPartyObj as $partyBlock) {
-                                echo '
-                                    <a href="../partyRelated/PartyPage.php?q='.$partyBlock->ID.'">
-                                        <div class="party-info">
-                                            <ol>
-                                                <li>'.$partyBlock->Party_name.'</li>
-                                                <li>'.$partyBlock->Holder.'</li>
-                                                <li>'.$partyBlock->Party_time.'</li>
-                                                <li>'.$partyBlock->Location.'</li>
-                                            </ol>
-
-                                ';
-                                if($partyObj->checkMemberNum($partyBlock->ID)) {  // check whether meet limit number , and display button
-                                    echo '
-                                        <div class="join-party">
-                                            <button id="btn-join-party" onclick="JoinParty('.$partyBlock->ID.')"><b>Join The Party</b></button> 
-                                        </div>
-                                    ';
-
-                                }
-                                echo '    
-                                        </div>
-                                    </a>
-                                ';
+                </div> 
+                <div class="post-list">
+                    <?php
+                        // like function not hasn's did yet
+                        foreach($personalPosts as $p) {
+                            echo '
+                                <div class="post-block">
+                                    <div class="title-block">
+                                        echo "'.$p->Post_time.'";
+                                    </div>
+                                    <hr>
+                                    <div class="content-block">
+                                        echo "'.$p->Post_content.'";
+                                    </div>
+                                    <hr>
+                                    <div class="like-comment-block">
+                                        
+                                    </div>
+                                </div>
 
 
-                            }
 
+                            '     
 
-                        ?>
-                        <script>
-                            
-
-                            function JoinParty(partyID) {
-                                var xhttp = new XMLHttpRequest();
-                                xhttp.onreadystatechange = function() {
-                                    if (this.readyState == 4 && this.status == 200) {
-                                        //document.getElementsByClassName("join-party")[0].visibility = "hidden"
-                                        alert("success");
-                                    }    
-                                };
-                                xhttp.open("GET", "../partyRelated/JoinParty.php?q=" + partyID, true);
-                                xhttp.send();
-                            }
-                        </script>
-                    </div>
+                        }
+                    ?>
                 </div>
+
             </div>
         </div>
     </body>
