@@ -6,7 +6,8 @@
     require "../init.php";
 
     session_start();
-    $allPartyObj = $partyObj->getAllParty()
+    $allPartyObj = $partyObj->getAllParty();
+    $allPostObj = $postObj->GetAllPost($_SESSION["ID"]);
 ?>
 <!DOCTYPE html>
 <html>
@@ -311,7 +312,7 @@
     <body>
         <div class="top-side">
             <a class="nav-bar"><i class="fa fa-bars"> </i></a>
-            <a class="user-search"><i class="fa fa-search"> </i></a>
+            <button href="./SearchNewFriendPage.php" onclick="document.getElementById('popup-window').style.display='block'" class="user-search"><i class="fa fa-search"> </i></button>
             <a class="notification" href="#"><i class="fa fa-bell-o"></i></a>
             <button class="party-create-btn" onclick="document.getElementById('popup-window').style.display='block'"><i class="fa fa-plus-square-o"></i></button>
             <div id="popup-window" class="party-create-block">
@@ -413,14 +414,13 @@
                     <button class="btnLink" onclick="PartyPostTransit(event, 'Post')">Post List</button>
                 </div>
                 <div id="Post" class="btnContent">
-                    <form action=""
+                    <?php
+
+
+                    ?>
+
                 </div>
                 <div id="Party" class="btnContent">
-                    <div class="party-personal-page-block">
-                        <button class="party-btn"> Party </button>
-
-                        <button class="personal-page-btn"> Personal Page </button>
-                    </div>
                     <div class="search-bar-container">
                         <div class="search-bar">
                             <input class="search-input" placeholder="Search...">
@@ -443,39 +443,46 @@
                                                 <li>'.$partyBlock->Party_time.'</li>
                                                 <li>'.$partyBlock->Location.'</li>
                                             </ol>
-
+                                    </a>
                                 ';
                                 if($partyObj->checkMemberNum($partyBlock->ID)) {  // check whether meet limit number , and display button
                                     echo '
                                         <div class="join-party">
-                                            <button id="btn-join-party" onclick="JoinParty('.$partyBlock->ID.')"><b>Join The Party</b></button> 
+                                            <button id="btn-join-party" onclick="JoinParty('.$partyBlock->ID.','.$partyBlock->Holder.','.$partyBlock->Location.','.$partyBlock->Party_type.','.$partyBlock->Limit_members_num.')"><b>Join The Party</b></button> 
                                         </div>
                                     ';
 
                                 }
                                 echo '    
                                         </div>
-                                    </a>
                                 ';
-
-
+                            
                             }
 
 
                         ?>
                         <script>
-                            
 
-                            function JoinParty(partyID) {
+                            function JoinParty(partyID, holder, loc, type, membersNum) {
+                                alert("great");
                                 var xhttp = new XMLHttpRequest();
+                                alert("join");
                                 xhttp.onreadystatechange = function() {
                                     if (this.readyState == 4 && this.status == 200) {
                                         //document.getElementsByClassName("join-party")[0].visibility = "hidden"
                                         alert("success");
                                     }    
+                                    else 
+                                        alert("fail");
                                 };
                                 xhttp.open("GET", "../partyRelated/JoinParty.php?q=" + partyID, true);
                                 xhttp.send();
+                                /*var x2http = new XMLHttpRequest();
+                                contentForCollect = holder + ',' + loc + ',' + type + ',' + membersNum;
+                                x2http.open("GET", "../UsersPartyRecords", true);
+                                x2http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                x2http.send(contentForCollect); */
+
                             }
                         </script>
                     </div>

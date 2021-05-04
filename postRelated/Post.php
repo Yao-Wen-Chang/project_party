@@ -33,6 +33,10 @@
                 return $data;
             else
                 return false;
+        }
+        function GetAllPost($userID) {
+            
+
         } 
         function DeletePost() {
 
