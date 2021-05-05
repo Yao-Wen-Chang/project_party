@@ -48,6 +48,11 @@
                 box-sizing: inherit;
                 font-size: 15px;
             }
+            .top-left {
+                
+
+
+            }
             .nav-bar {
                 color: white;
                 font-size: 18px;
@@ -64,6 +69,20 @@
                 border: none;
                 float: left;
                 padding: 12px 24px;
+            }
+            .search-username-block {
+                display: none;
+                text-align: center;
+
+            }
+            .username-input {
+                margin: 10px, auto;
+
+
+            }
+            .userInfo {
+                margin: auto;    
+                
             }
             .notification {
                 color: white;
@@ -311,37 +330,64 @@
     <head>
     <body>
         <div class="top-side">
-            <a class="nav-bar"><i class="fa fa-bars"> </i></a>
-            <button href="./SearchNewFriendPage.php" onclick="document.getElementById('popup-window').style.display='block'" class="user-search"><i class="fa fa-search"> </i></button>
-            <a class="notification" href="#"><i class="fa fa-bell-o"></i></a>
-            <button class="party-create-btn" onclick="document.getElementById('popup-window').style.display='block'"><i class="fa fa-plus-square-o"></i></button>
-            <div id="popup-window" class="party-create-block">
+            <div id="top-left">
+                <a class="nav-bar"><i class="fa fa-bars"> </i></a>
+                <button onclick="document.getElementById('top-left').innerHTML='block'" class="user-search"><i class="fa fa-search"> </i></button>
+                <div id="username-search-popup" class="search-username-block">
+                    <input class="username-input" type="text" onchange="showUser(this.value)" placeholder="Typing the username..." name="username"><hr>
+                    <div id="usersList">
 
-                <form class="party-info animate" action="../partyRelated/CreateParty.php" method="post">
-                    <div class="container">
-                        <span class="close" onclick="document.getElementById('popup-window').style.display = 'none'">X</span>
-                        <label for="party-name"><b>Party Name</b></label>
-                        <input type="text" placeholder="Enter party name" name="partyName" required><br>
-
-                        <label for="party-type"><b>Party Type</b></label>
-                        <input type="text" placeholder="Enter party type" name="partyType" required><br>
-
-                        <label for="loc"><b>Location</b></label>
-                        <input type="text" placeholder="Enter location" name="loc" required><br>
-
-                        <label for="party-time"><b>Party Time</b></label>
-                        <input type="date" placeholder="choose party hold time" name="partyTime" required><br>
-
-                        <label for="limit-mem"><b>Limit Member</b></label>
-                        <input type="number" placeholder="Enter utmost member number" name="limitMem" required><br>
-
-                        <label for="description"><b>Description</b></label>
-                        <input type="text" placeholder="Descript the party" name="description" required><br>
-
-                        <button type="submit">Create</button>
                     </div>
+                </div>
+                
+                <script>
+                    function showUser(username) {
+                        var xhttp;
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                if(this.responseText) {
+                                           
 
-                </form>
+                                    document.getElementById("usersList").innerHTML = this.responseText;
+                                }
+                            } 
+                        };
+                        xhttp.open("GET", "SearchNewUser.php?q="+username, true);
+                        xhttp.send();
+                              
+                    }
+                </script>
+                <a class="notification" href="#"><i class="fa fa-bell-o"></i></a>
+                <button class="party-create-btn" onclick="document.getElementById('popup-window').style.display='block'"><i class="fa fa-plus-square-o"></i></button>
+                <div id="popup-window" class="party-create-block">
+
+                    <form class="party-info animate" action="../partyRelated/CreateParty.php" method="post">
+                        <div class="container">
+                            <span class="close" onclick="document.getElementById('popup-window').style.display = 'none'">X</span>
+                            <label for="party-name"><b>Party Name</b></label>
+                            <input type="text" placeholder="Enter party name" name="partyName" required><br>
+
+                            <label for="party-type"><b>Party Type</b></label>
+                            <input type="text" placeholder="Enter party type" name="partyType" required><br>
+
+                            <label for="loc"><b>Location</b></label>
+                            <input type="text" placeholder="Enter location" name="loc" required><br>
+
+                            <label for="party-time"><b>Party Time</b></label>
+                            <input type="date" placeholder="choose party hold time" name="partyTime" required><br>
+
+                            <label for="limit-mem"><b>Limit Member</b></label>
+                            <input type="number" placeholder="Enter utmost member number" name="limitMem" required><br>
+
+                            <label for="description"><b>Description</b></label>
+                            <input type="text" placeholder="Descript the party" name="description" required><br>
+
+                            <button type="submit">Create</button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
             <a class="log-out" href="./LoginPage.php"><i class="fa fa-power-off"></i></a>
         </div>
