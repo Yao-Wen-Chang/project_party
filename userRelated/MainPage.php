@@ -1,13 +1,10 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
 
     require "../init.php";
 
     session_start();
     $allPartyObj = $partyObj->getAllParty();
-    $allPostObj = $postObj->GetAllPost($_SESSION["ID"]);
+    $allPostObj = $postObj->GetUserPosts($_SESSION["ID"]);
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,6 +35,8 @@
                 margin: 0;
                 box-sizing: inherit;
                 line-height: 1.5;
+                background-image: url("../backgroundPhoto/MainPage.jpg");
+                background-size: cover;
 
             }
             .top-side {
@@ -159,6 +158,7 @@
             .left-col {
                 width: 25%;
                 float: left;
+                
                 box-sizing: inherit;
 
             }
@@ -254,6 +254,42 @@
                 padding: 0px 16px;
                 box-sizing: inherit;
                 float: left;
+            }
+
+            .btn {
+                overflow: hidden;
+                border: 1px solid #ccc;
+                background-color: #A0522D;
+                opacity: 0.5;
+                margin: 5px, auto;
+                text-align: center;
+            }
+            .btn button {
+                background-color: inherit;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 20px;
+                margin: 10px, auto;
+                right: 0;
+                top: 0;
+                transition: 0.3s;
+                font-size: 17px;
+                border-width: 2px;
+            }
+            .btn button:hover {
+                background-color: #ddd;
+            }
+            .btn button.active {
+                background-color: #ccc;
+            }
+            .btnContent {
+                display: none;
+
+            }
+            .posts-block {
+
+
             }
             .party-personal-page-block {
                 border: 2px solid black;
@@ -460,8 +496,29 @@
                     <button class="btnLink" onclick="PartyPostTransit(event, 'Post')">Post List</button>
                 </div>
                 <div id="Post" class="btnContent">
+                    <form action="../postRelated/NewPosts.php" method="get">
+                        <input type="text" placeholder="Say something...." name="content"><br>
+                        
+                        <button type="submit">ADD</button>
+                    </form>
                     <?php
-
+                        foreach($allPostObj as $posts) {
+                            $block = "
+                                <div class='posts-block'>
+                                    <ol>
+                                        <li>'.$posts->Poster.'</li>
+                                        <li>'.$posts->Post_content.'</li>
+                                        <li>'.$posts->Post_time.'</li>
+                                        <li>'.$posts->Like_num.'</li>
+                                    </ol>
+                                </div>                
+            
+                            ";
+                            echo block;
+                            
+                            
+            
+                        }
 
                     ?>
 
@@ -494,8 +551,10 @@
                                 if($partyObj->checkMemberNum($partyBlock->ID)) {  // check whether meet limit number , and display button
                                     echo '
                                         <div class="join-party">
+                                            
                                             <button id="btn-join-party" onclick="JoinParty('.$partyBlock->ID.','.$partyBlock->Holder.','.$partyBlock->Location.','.$partyBlock->Party_type.','.$partyBlock->Limit_members_num.')"><b>Join The Party</b></button> 
                                         </div>
+
                                     ';
 
                                 }
@@ -511,7 +570,7 @@
 
                             function JoinParty(partyID, holder, loc, type, membersNum) {
                                 alert("great");
-                                var xhttp = new XMLHttpRequest();
+                                /*var xhttp = new XMLHttpRequest();
                                 alert("join");
                                 xhttp.onreadystatechange = function() {
                                     if (this.readyState == 4 && this.status == 200) {
@@ -522,7 +581,7 @@
                                         alert("fail");
                                 };
                                 xhttp.open("GET", "../partyRelated/JoinParty.php?q=" + partyID, true);
-                                xhttp.send();
+                                xhttp.send();*/
                                 /*var x2http = new XMLHttpRequest();
                                 contentForCollect = holder + ',' + loc + ',' + type + ',' + membersNum;
                                 x2http.open("GET", "../UsersPartyRecords", true);
