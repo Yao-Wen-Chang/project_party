@@ -229,8 +229,8 @@
                                     <div class="city">
                                         CITY: '.$d->City.'
                                     </div>
-                                    <div class="age">
-                                        AGE: '.$d->Age.'
+                                    <div class="birth">
+                                        AGE: '.$d->Birth.'
                                     </div>
                                     <div class="gender">
                                         GENDER: '.$d->Gender.'

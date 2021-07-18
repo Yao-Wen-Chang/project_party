@@ -345,6 +345,7 @@
                 box-sizing: inherit;
                 padding: 8px 16px;
                 margin: 10px 0px;
+            }
             .party-intro {
 
                 box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
@@ -551,12 +552,9 @@
                                 if($partyObj->checkMemberNum($partyBlock->ID)) {  // check whether meet limit number , and display button
                                     echo '
                                         <div class="join-party">
-                                            
-                                            <button id="btn-join-party" onclick="JoinParty('.$partyBlock->ID.','.$partyBlock->Holder.','.$partyBlock->Location.','.$partyBlock->Party_type.','.$partyBlock->Limit_members_num.')"><b>Join The Party</b></button> 
+                                            <button id="btn-join-party" onclick="JoinParty('.$partyBlock->ID.',"'.$partyBlock->Holder.'","'.$partyBlock->Location.'","'.$partyBlock->Party_type.'",'.$partyBlock->Limit_members_num.')"><b>Join The Party</b></button> 
                                         </div>
-
                                     ';
-
                                 }
                                 echo '    
                                         </div>
@@ -570,7 +568,7 @@
 
                             function JoinParty(partyID, holder, loc, type, membersNum) {
                                 alert("great");
-                                /*var xhttp = new XMLHttpRequest();
+                                var xhttp = new XMLHttpRequest();
                                 alert("join");
                                 xhttp.onreadystatechange = function() {
                                     if (this.readyState == 4 && this.status == 200) {
@@ -581,7 +579,7 @@
                                         alert("fail");
                                 };
                                 xhttp.open("GET", "../partyRelated/JoinParty.php?q=" + partyID, true);
-                                xhttp.send();*/
+                                xhttp.send();
                                 /*var x2http = new XMLHttpRequest();
                                 contentForCollect = holder + ',' + loc + ',' + type + ',' + membersNum;
                                 x2http.open("GET", "../UsersPartyRecords", true);
