@@ -1,6 +1,6 @@
 <?php
 
-
+   
     class Party {
         private $db;
         
@@ -14,7 +14,7 @@
                 $query = "INSERT INTO Parties (Party_name , Holder, Party_type, Location, Party_time, Limit_members_num, Description) VALUES (:Party_name , :Holder, :Party_type, :Location, :Party_time, :Limit_members_num, :Description)";
                 $preparation = $this->db->prepare($query);
                 $preparation->bindValue(":Party_name", $name);
-                $preparation->bindValue(":Holder", "WEN");
+                $preparation->bindValue(":Holder", $_SESSION["username"]);
                 $preparation->bindValue(":Party_type", $type);
                 $preparation->bindValue(":Location", $loc);
                 $preparation->bindValue(":Party_time", $time);
@@ -22,7 +22,15 @@
                 $preparation->bindValue(":Description", $description);
                 $result = $preparation->execute();
 
+                $id = $this->db->lastInsertId(); 
                 
+                $query = "INSERT INTO Party_User (UserID, PartyID) VALUES (:userID, :partyID)";
+                $preparation = $this->db->prepare($query);
+                $preparation->bindValue(":userID", $_SESSION["ID"]);
+                $preparation->bindValue(":partyID", $id);
+                
+                $result = $preparation->execute();
+
                 if($result)
                     return TRUE;
                 else 
@@ -34,7 +42,7 @@
                 echo "Error: " . $exception->getMessage();
             }
         }
-        
+     
         
         function searchParty($party_name) {
             try {
@@ -101,7 +109,24 @@
             else 
                 return FALSE;
         }
-
+        function checkNotHolder($partyID) {
+            try{
+                $query = "SELECT Holder FROM Parties WHERE ID = $partyID";
+                $preparation = $this->db->prepare($query);
+                $preparation->execute();
+                $holder = $preparation->fetch(PDO::FETCH_OBJ);
+                
+                if($holder->Holder == $_SESSION["username"]) 
+                    return FALSE;
+                else
+                    return TRUE;
+                
+            }
+            catch(PDOException $exception) {
+                echo "Error: " . $exception->getMessage();
+            }
+            
+        }
         function joinParty($partyID) {
             try {
                 
@@ -117,6 +142,7 @@
                         $preparation = $this->db->prepare($query);
                         $preparation->bindValue(":UserID", $_SESSION["ID"]);
                         $preparation->bindValue(":PartyID", $partyID);
+                       
                         $result = $preparation->execute();
                         return true;
                     }
@@ -140,8 +166,8 @@
                 $query = "SELECT Username, Gender, Birth, Job, City, Avatar FROM Users LEFT JOIN Party_User ON ID = UserID LEFT JOIN Parties ON PartyID = UserID AND PartyID = ?";
                 
                 $preparation = $this->db->prepare($query);
-
                 $result = $preparation->execute([$partyID]);
+
                 return true;
             }
             catch(PDOException $exception) {

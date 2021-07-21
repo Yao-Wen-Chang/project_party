@@ -1,7 +1,5 @@
 <?php
-
     require "../init.php";
-
     session_start();
     $allPartyObj = $partyObj->getAllParty();
     $allPostObj = $postObj->GetUserPosts($_SESSION["ID"]);
@@ -549,10 +547,10 @@
                                             </ol>
                                     </a>
                                 ';
-                                if($partyObj->checkMemberNum($partyBlock->ID)) {  // check whether meet limit number , and display button
+                                if($partyObj->checkMemberNum($partyBlock->ID) && $partyObj->checkNotHolder($partyBlock->ID)) {  // check whether meet limit number , and display button
                                     echo '
                                         <div class="join-party">
-                                            <button id="btn-join-party" onclick="JoinParty('.$partyBlock->ID.',"'.$partyBlock->Holder.'","'.$partyBlock->Location.'","'.$partyBlock->Party_type.'",'.$partyBlock->Limit_members_num.')"><b>Join The Party</b></button> 
+                                            <button id="btn-join-party" onclick="JoinParty('.$partyBlock->ID.')"><b>Join The Party</b></button> 
                                         </div>
                                     ';
                                 }
@@ -566,17 +564,17 @@
                         ?>
                         <script>
 
-                            function JoinParty(partyID, holder, loc, type, membersNum) {
-                                alert("great");
+                            function JoinParty(partyID) {
+                                
                                 var xhttp = new XMLHttpRequest();
-                                alert("join");
+                                
                                 xhttp.onreadystatechange = function() {
                                     if (this.readyState == 4 && this.status == 200) {
-                                        //document.getElementsByClassName("join-party")[0].visibility = "hidden"
+                                        document.getElementsByClassName("join-party")[0].visibility = "hidden"
                                         alert("success");
                                     }    
-                                    else 
-                                        alert("fail");
+                                    /*else 
+                                        alert("fail");*/
                                 };
                                 xhttp.open("GET", "../partyRelated/JoinParty.php?q=" + partyID, true);
                                 xhttp.send();
